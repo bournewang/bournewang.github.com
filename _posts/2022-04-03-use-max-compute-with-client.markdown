@@ -67,7 +67,7 @@ create table if not exists bank_data
 ```
 
 create partition table bank_data_pt
-```
+```shell
 create table if not exists bank_data_pt
 (
  age             BIGINT comment '年龄',
@@ -96,7 +96,7 @@ alter table bank_data_pt add if not exists partition (credit='yes') partition (c
 ```
 
 create result_table1:
-```
+```shell
 create table if not exists result_table1
 (
  education   STRING comment '教育程度',
@@ -105,7 +105,7 @@ create table if not exists result_table1
 ```
 
 create table result_table2:
-```
+```shell
 create table if not exists result_table2
 (
  education   STRING comment '教育程度',
@@ -115,12 +115,12 @@ create table if not exists result_table2
 ```
 
 then, run "show tables" to confirm your table;
-```
+```shell
 show tables;
 ```
 
 run "desc table_name" to check the table;
-```
+```shell
 --查看bank_data表结构。
 desc bank_data;
 --查看bank_data_pt表结构。
@@ -134,13 +134,13 @@ desc result_table2;
 ```
 
 get partitions of a partition table:
-```
+```shell
 show partitions bank_data_pt;
 ```
 
 ## 4. Import Data
 use "tunnel" command to upload the data, let's say you download the sample banking data in "~/Downloads";
-```
+```shell
 tunnel upload ~/Downloads/banking.txt bank_data;
 tunnel upload ~/banking_yescreditcard.csv bank_data_pt/credit="yes";
 tunnel upload ~/banking_uncreditcard.csv bank_data_pt/credit="unknown";
@@ -149,7 +149,7 @@ tunnel upload ~/banking_nocreditcard.csv bank_data_pt/credit="no";
 you'll see "OK" if success.
 
 let's confirm the result:
-```
+```shell
 select count(age) as num1 from bank_data;
 select count(age) as num2 from bank_data_pt where credit="yes";
 select count(age) as num3 from bank_data_pt where credit="unknown";
@@ -159,7 +159,7 @@ you'll see numbers replied.
 
 ## 5. SQL and Compute
 get the single people number who has housing and group by education and put the result into "result_table":
-```
+```shell
 --查询非分区表bank_data中各个学历下的贷款买房的单身人士数量并将查询结果写入result_table1。
 insert overwrite table result_table1
 select education, count(marital) as num
@@ -177,12 +177,12 @@ group by education, credit;
 ```
 
 CAUTION: partition table will not allow full table scan unless you set fullscan to true:
-```
+```shell
 set odps.sql.allow.fullscan=true;
 ```
 
 ## 6. Download the result
-```
+```shell
 tunnel download result_table1 ~/Downloads/result_table1.csv;
 tunnel download result_table2 ~/Downloads/result_table2.csv;
 ```
