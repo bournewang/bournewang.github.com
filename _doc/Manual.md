@@ -134,7 +134,7 @@ Etc.
 # Sidebar settings
 sidebar: true   # default true
 sidebar-about-description: "your description here"
-sidebar-avatar: /img/avatar-hux.jpg     # use absolute URL.
+sidebar-avatar: /img/avatar-yukun.jpg     # use absolute URL.
 ```
 
 Modules *[Featured Tags](#featured-tags)*, *[Mini About Me](#mini-about-me)* and *[Friends](#friends)* are turned on by default and you can add your own. The sidebar is naturally responsive, i.e. be pushed to bottom in a smaller screen (`<= 992px`, according to [Bootstarp Grid System](http://getbootstrap.com/css/#grid))  
@@ -318,7 +318,7 @@ Shout out to [@kitian616/jekyll-TeXt-theme](https://github.com/kitian616/jekyll-
 
 - Big Improvement to the **Navigation Menu** *(especially in Android)*:  Dropping the old, stuttering, low-performance [Bootstrap collapse.js](http://getbootstrap.com/javascript/#collapse),  replaced with an own wrote, [jank free](http://jankfree.org/) navbar menu in a pretty high-performance implementation of [Google Material Design](https://www.google.com/design/spec/material-design/introduction.html).
 
-<img src="http://huangxuan.me/img/blog-md-navbar.gif" width="320" />
+<img src="http://huangxuan.me/img/blog-md-navbar.gif" width="320"/>
 
 
 #### V1.2
