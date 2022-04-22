@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Hive window function - first_value"
+title:  "Hive window function - 1"
 date:   2022-04-21 17:29:38 +0800
 categories: bigdata
 tags:
@@ -10,6 +10,12 @@ tags:
 ---
 
 Hive provides powerful window functions on current frame.
+
+In this chapter, I will demostrate how these functions work: 
+* first_value()
+* last_value()
+* sum()
+* count()
 
 For example, we have orders table, 
 
@@ -24,9 +30,8 @@ pt                  	string
 ```
 
 and I want to get these order info for each user with sql: 
-* First and Last order info(create_time/amount) 
-* Minimum amount of order and create_time
-* Maximum amount of order and create_time
+* First and last order info(create_time/amount) 
+* Minimum and Maximum amount of order and create_time
 * Total order amount and count
 
 ```shell
@@ -35,8 +40,8 @@ select distinct(user_id),
     first_value(create_time)  over(partition by user_id order by create_time) as first_order_time,
     first_value(order_amount) over(partition by user_id order by create_time) as first_order_amount,
 --     last order
-    first_value(create_time)  over(partition by user_id order by create_time desc) as last_order_time,
-    first_value(order_amount) over(partition by user_id order by create_time desc) as last_order_amount,
+    last_value(create_time)  over(partition by user_id order by create_time) as last_order_time,
+    last_value(order_amount) over(partition by user_id order by create_time) as last_order_amount,
 --     min amount
     first_value(create_time)  over(partition by user_id order by order_amount ) as min_order_time,
     first_value(order_amount) over(partition by user_id order by order_amount ) as min_order_amount,
