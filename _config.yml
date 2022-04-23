@@ -103,11 +103,11 @@ page-mathjax: false
 
 # Friends
 friends: [
-    {
-#         title: "Su",
-#         href: "http://su.gallery/"
-#     },{
-        title: "侯圣文（Secooler）",
-        href: "http://blog.itpub.net/519536/"
-    }
+  {
+    title: "侯圣文（Secooler）",
+    href: "http://blog.itpub.net/519536/"
+  },{
+    title: "薛双奇",
+    href: "https://blog.csdn.net/weixin_43346403"
+  }
 ]
