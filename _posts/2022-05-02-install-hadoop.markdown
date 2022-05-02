@@ -1,14 +1,17 @@
 ---
 layout: post
-title:  "Install Hadoop and related components"
+title:  "Install Hadoop and related components automatically"
 date:   2022-05-02 17:23:18 +0800
 categories: bigdata
 tags:
     - Bigdata
     - Hadoop
 ---
-# Install Hadoop and related components
+# Install Hadoop and related components automatically
 
+Install and configure hadoop is tedious, so I build a script to do this process automatically.
+
+The git project can be found here [install hadoop](https://github.com/bournewang/install_hadoop){:target="_blank"}.
 ## 1. Configure Hosts
 Let's assume you have 3 hosts  hadoop001/hadoop002/hadoop003, and configured access each other with ssh key(withput entering password).
 
