@@ -12,13 +12,15 @@ tags:
 Install and configure hadoop is tedious, so I build a script to do this process automatically.
 
 The git project can be found here [install hadoop](https://github.com/bournewang/install_hadoop){:target="_blank"}.
+
 ## 1. Configure Hosts
 Let's assume you have 3 hosts  hadoop001/hadoop002/hadoop003, and configured access each other with ssh key(withput entering password).
 
 If not, do as following steps.
 
-Make sure you can access them with your private key(you can login to them directly with command "ssh root@hadoop001"),
-then execute
+Make sure you can access them with your private key(you can login to them directly with command "ssh root@hadoop001").
+
+Download or clone project on your computer, get into the project folder, and then execute:
 ```shell
 ./config-hosts-access.sh "hadoop001 hadoop002 hadoop003"
 ```
@@ -52,8 +54,7 @@ Connection to hadoop003 closed.
 ```
 
 ## 2. Prepare packages
-Download or clone [install hadoop](https://github.com/bournewang/install_hadoop){:target="_blank"} project in all 3 hosts;
-
+Download or clone the project in all 3 hosts;
 Run _./download.sh_ to download packages,
 download jdk-8u231-linux-x64.tar.gz(from oracle java official website) manually and save to software folder;
 then, you should get these files in _software_ folder:
@@ -74,9 +75,40 @@ total 3064776
 -rw-r--r--@ 1 wangxiaopei  staff   17953604 Feb 18 18:01 sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz
 ```
 
+copy packages to other hosts;
+```shell
+[root@hadoop001 bigdata]# scp -r software hadoop002:`pwd`
+spark-2.4.5-bin-hadoop2.7.tgz                                        100%  222MB 191.0MB/s   00:01
+flink-1.12.7-bin-scala_2.11.tgz                                      100%  318MB 173.8MB/s   00:01
+apache-hive-3.1.2-bin.tar.gz                                         100%  266MB 122.6MB/s   00:02
+apache-flume-1.9.0-bin.tar.gz                                        100%   65MB 129.3MB/s   00:00
+mysql-connector-java-8.0.11.jar                                      100% 1989KB 119.7MB/s   00:00
+sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz                                 100%   17MB  28.0MB/s   00:00
+apache-zookeeper-3.5.9-bin.tar.gz                                    100% 9397KB 169.4MB/s   00:00
+hadoop-2.7.3.tar.gz                                                  100%  204MB 143.5MB/s   00:01
+jdk-8u231-linux-x64.tar.gz                                           100%  185MB 107.2MB/s   00:01
+hbase-1.7.1-bin.tar.gz                                               100%  113MB 112.7MB/s   00:01
+kafka_2.11-2.4.1.tgz                                                 100%   67MB 109.7MB/s   00:00
+scala-2.11.12.tgz                                                    100%   28MB 103.5MB/s   00:00
+
+[root@hadoop001 bigdata]# scp -r software hadoop003:`pwd`
+spark-2.4.5-bin-hadoop2.7.tgz                                        100%  222MB 191.0MB/s   00:01
+flink-1.12.7-bin-scala_2.11.tgz                                      100%  318MB 173.8MB/s   00:01
+apache-hive-3.1.2-bin.tar.gz                                         100%  266MB 122.6MB/s   00:02
+apache-flume-1.9.0-bin.tar.gz                                        100%   65MB 129.3MB/s   00:00
+mysql-connector-java-8.0.11.jar                                      100% 1989KB 119.7MB/s   00:00
+sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz                                 100%   17MB  28.0MB/s   00:00
+apache-zookeeper-3.5.9-bin.tar.gz                                    100% 9397KB 169.4MB/s   00:00
+hadoop-2.7.3.tar.gz                                                  100%  204MB 143.5MB/s   00:01
+jdk-8u231-linux-x64.tar.gz                                           100%  185MB 107.2MB/s   00:01
+hbase-1.7.1-bin.tar.gz                                               100%  113MB 112.7MB/s   00:01
+kafka_2.11-2.4.1.tgz                                                 100%   67MB 109.7MB/s   00:00
+scala-2.11.12.tgz                                                    100%   28MB 103.5MB/s   00:00
+
+```
 ## 3. Install
 
-_install.sh_ will install packages into /opt/module, and add environment variables to /etc/profile;
+This step will install packages into /opt/module, and add environment variables to /etc/profile;
 
 run "./install.sh 1" on hadoop001;
 ```shell
