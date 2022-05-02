@@ -49,7 +49,7 @@ Connection to hadoop003 closed.
 ```
 
 ## 2. Prepare packages
-Download or clone this project in all 3 hosts;
+Download or clone [install hadoop](https://github.com/bournewang/install_hadoop){:target="_blank"} project in all 3 hosts;
 
 Run _./download.sh_ to download packages,
 download jdk-8u231-linux-x64.tar.gz(from oracle java official website) manually and save to software folder;
