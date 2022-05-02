@@ -143,9 +143,6 @@ run "./install.sh 3" on hadoop003;
 
 ## 4. Start Service
 let the environment variables go effect.
-```shell
-[root@hadoop001 opt]# source /etc/profile
-```
 go to /opt, run "./start.sh" on hadoop001 to start all services on three hosts;
 ```shell
 [root@hadoop001 opt]# cat /etc/profile
@@ -165,6 +162,7 @@ export HBASE_HOME=/opt/module/hbase-1.7.1
 export KAFKA_HOME=/opt/module/kafka_2.11-2.4.1
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin:/opt/module/jdk1.8.0_231/bin:/opt/module/hadoop-2.7.3/bin:/opt/module/hadoop-2.7.3/sbin:/opt/module/apache-zookeeper-3.5.9-bin/bin:/opt/module/apache-hive-3.1.2-bin/bin:/opt/module/apache-flume-1.9.0-bin/bin:/opt/module/sqoop-1.4.7.bin__hadoop-2.6.0/bin:/opt/module/scala-2.11.12/bin:/opt/module/spark-2.4.5-bin-hadoop2.7/bin:/opt/module/spark-2.4.5-bin-hadoop2.7/sbin:/opt/module/hbase-1.7.1/bin:/opt/module/kafka_2.11-2.4.1/bin
 
+[root@hadoop001 opt]# source /etc/profile
 [root@hadoop001 opt]# ./start.sh
 ...
 [root@hadoop001 opt]# jps
