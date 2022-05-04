@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Sqoop usage"
-date:   2022-05-02 17:45:23 +0800
+date:   2022-05-04 17:45:23 +0800
 categories: bigdata
 tags:
     - Bigdata 
