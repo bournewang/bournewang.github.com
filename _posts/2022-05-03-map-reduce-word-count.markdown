@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Map Reduce ---- Word Count"
+title:  "Word Count - find the top ranking words used in an article "
 date:   2022-05-03 19:37:44 +0800
 categories: bigdata
 tags:
