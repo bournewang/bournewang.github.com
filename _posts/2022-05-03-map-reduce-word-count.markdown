@@ -148,7 +148,7 @@ Found 20 items
 
 ## 3.3 Do the word counting
 ```shell
-[root@hadoop001 ~]# hadoop jar WordCount.jar com.yukun.JobServerDriver /news1 /news1-count.txt
+[root@hadoop001 ~]# hadoop jar WordCount.jar com.yukun.JobServerDriver /news1 /news1-count
 [root@hadoop001 ~]# hadoop jar WordCount.jar com.yukun.JobServerDriver /news2 /news2-count
 [root@hadoop001 ~]# hadoop jar WordCount.jar com.yukun.JobServerDriver /news3 /news3-count
 [root@hadoop001 ~]# hadoop jar WordCount.jar com.yukun.JobServerDriver /news /news-count
@@ -159,9 +159,9 @@ drwxr-xr-x   - root supergroup          0 2022-05-05 11:55 /news-count
 -rw-r--r--   3 root supergroup          0 2022-05-05 11:55 /news-count/_SUCCESS
 -rw-r--r--   3 root supergroup       8791 2022-05-05 11:55 /news-count/part-r-00000
 -rw-r--r--   3 root supergroup       5632 2022-05-03 18:05 /news1
-drwxr-xr-x   - root supergroup          0 2022-05-05 11:51 /news1-count.txt
--rw-r--r--   3 root supergroup          0 2022-05-05 11:51 /news1-count.txt/_SUCCESS
--rw-r--r--   3 root supergroup       3855 2022-05-05 11:51 /news1-count.txt/part-r-00000
+drwxr-xr-x   - root supergroup          0 2022-05-05 11:51 /news1-count
+-rw-r--r--   3 root supergroup          0 2022-05-05 11:51 /news1-count/_SUCCESS
+-rw-r--r--   3 root supergroup       3855 2022-05-05 11:51 /news1-count/part-r-00000
 -rw-r--r--   3 root supergroup       3800 2022-05-03 18:05 /news2
 drwxr-xr-x   - root supergroup          0 2022-05-05 11:51 /news2-count
 -rw-r--r--   3 root supergroup          0 2022-05-05 11:51 /news2-count/_SUCCESS
@@ -226,7 +226,7 @@ Francisco	11
 ## 3.5 Get the result and retrieve to local computer
 ```shell
 [root@hadoop001 ~]# hdfs dfs -get /news-count/part-r-00000 news-count
-[root@hadoop001 ~]# hdfs dfs -get /news1-count.txt/part-r-00000 news1-count.txt
+[root@hadoop001 ~]# hdfs dfs -get /news1-count/part-r-00000 news1-count
 [root@hadoop001 ~]# hdfs dfs -get /news2-count/part-r-00000 news2-count
 [root@hadoop001 ~]# hdfs dfs -get /news3-count/part-r-00000 news3-count
 [root@hadoop001 ~]# ll
@@ -235,7 +235,7 @@ total 38612
 -rw-r--r--  1 root root     13882 May  5 11:59 news
 -rw-r--r--  1 root root      8791 May  5 12:09 news-count
 -rw-r--r--  1 root root      5632 May  3 18:05 news1
--rw-r--r--  1 root root      3855 May  3 18:06 news1-count.txt
+-rw-r--r--  1 root root      3855 May  3 18:06 news1-count
 -rw-r--r--  1 root root      3800 May  3 18:05 news2
 -rw-r--r--  1 root root      2645 May  3 18:06 news2-count
 -rw-r--r--  1 root root      4450 May  3 18:05 news3
@@ -246,8 +246,8 @@ Connection to bj-hadoop001 closed.
 (base) ➜  ~ cd tmp
 (base) ➜  tmp scp root@bj-hadoop001:~/news-count .
 news-count                                                                                                                                                100% 8791   280.2KB/s   00:00
-(base) ➜  tmp scp root@bj-hadoop001:~/news1-count.txt .
-news1-count.txt                                                                                                                                               100% 3855   124.2KB/s   00:00
+(base) ➜  tmp scp root@bj-hadoop001:~/news1-count .
+news1-count                                                                                                                                               100% 3855   124.2KB/s   00:00
 (base) ➜  tmp scp root@bj-hadoop001:~/news2-count .
 news2-count                                                                                                                                               100% 2645    67.4KB/s   00:00
 (base) ➜  tmp scp root@bj-hadoop001:~/news3-count .
@@ -255,7 +255,7 @@ news3-count                                                                     
 (base) ➜  tmp ll
 total 296
 -rw-r--r--   1 wangxiaopei  staff   8791 May  5 12:10 news-count
--rw-r--r--   1 wangxiaopei  staff   3855 May  5 12:10 news1-count.txt
+-rw-r--r--   1 wangxiaopei  staff   3855 May  5 12:10 news1-count
 -rw-r--r--   1 wangxiaopei  staff   2645 May  5 12:10 news2-count
 -rw-r--r--   1 wangxiaopei  staff   3374 May  5 12:10 news3-count
 ```
@@ -287,7 +287,7 @@ Files used in this experiment:
 
 [news-count](/other/news-count "news-count"){:target='_blank'}
 
-[news1-count](/other/news1-count.txt "news1-count"){:target='_blank'}
+[news1-count](/other/news1-count "news1-count"){:target='_blank'}
 
 [news2-count](/other/news2-count "news2-count"){:target='_blank'}
 
