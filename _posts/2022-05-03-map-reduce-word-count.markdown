@@ -9,7 +9,7 @@ tags:
 ---
 
 # 1. Aim
-做一个jar包统计文章的词频，并列出使用频率最高的10个词。
+Create a MapReduce Task by Jar to find the top ranking words in articles.
 
 # 2. Java Development
 ## 2.1 create a maven project
