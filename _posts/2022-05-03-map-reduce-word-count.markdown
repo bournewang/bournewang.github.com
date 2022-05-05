@@ -279,17 +279,17 @@ Open the count files in Excel, sort the second(count) column in excel, combine t
 
 Files used in this experiment:
 
-[news1](/other/news1 "news1"){:target='_blank'} 
+[news1](/other/news1.txt "news1"){:target='_blank'} 
 
-[news2](/other/news2 "news2"){:target='_blank'}
+[news2](/other/news2.txt "news2"){:target='_blank'}
 
-[news3](/other/news3 "news3"){:target='_blank'}
+[news3](/other/news3.txt "news3"){:target='_blank'}
 
-[news-count](/other/news-count "news-count"){:target='_blank'}
+[news-count](/other/news-count.txt "news-count"){:target='_blank'}
 
-[news1-count](/other/news1-count "news1-count"){:target='_blank'}
+[news1-count](/other/news1-count.txt "news1-count"){:target='_blank'}
 
-[news2-count](/other/news2-count "news2-count"){:target='_blank'}
+[news2-count](/other/news2-count.txt "news2-count"){:target='_blank'}
 
-[news3-count](/other/news3-count "news3-count"){:target='_blank'}
+[news3-count](/other/news3-count.txt "news3-count"){:target='_blank'}
 
