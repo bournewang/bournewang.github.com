@@ -1,0 +1,17 @@
+
+sqoop import \
+--connect jdbc:mysql://lian-dev.suishou.cc:3306/curtain?zeroDateTimeBehavior=CONVERT_TO_NULL \
+--username app --password app123 \
+--table banners1 \
+--fields-terminated-by "\t" \
+--hive-import  --hive-database curtain --hive-table banners2
+
+
+sqoop export \
+--connect jdbc:mysql://lian-dev.suishou.cc:3306/curtain?zeroDateTimeBehavior=CONVERT_TO_NULL \
+--username app --password app123 \
+--table banners1 \
+--export-dir /user/root/banners \
+--fields-terminated-by "\t"
+
+
