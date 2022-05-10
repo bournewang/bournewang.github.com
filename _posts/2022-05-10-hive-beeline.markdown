@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Hive beeline连接配置"
-date:   2022-05-06 19:22:54 +0800
+date:   2022-05-10 12:46:55 +0800
 categories: bigdata
 tags:
     - Bigdata 
