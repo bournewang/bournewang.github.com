@@ -1,13 +1,13 @@
 ---
 layout: post
-title:  "Hive window function - 1"
+title:  "Hive Windowing and Analytics Function - Part 1"
 date:   2022-04-21 17:29:38 +0800
 categories: bigdata
 tags:
     - Bigdata
     - Hive
-    - Window Function
 ---
+# Hive Windowing and Analytics Function - Part 1
 
 Hive provides powerful window functions on current frame.
 
