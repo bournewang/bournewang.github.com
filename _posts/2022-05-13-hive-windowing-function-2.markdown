@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Hive Windowing and Analytics Function - Part 2"
+title:  "Hive Windowing and Analytics Function - Part 2 实操"
 date:   2022-05-13 17:29:38 +0800
 categories: bigdata
 tags:
@@ -8,7 +8,7 @@ tags:
     - Hive
 ---
 
-# Hive Windowing and Analytics Function - Part 2
+# Hive Windowing and Analytics Function - Part 2 实操
 
 ## 1. Hive的增强函数可分为以下几部分：
 ### 1.1 窗口函数：
