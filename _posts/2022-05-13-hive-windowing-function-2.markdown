@@ -238,56 +238,58 @@ INFO  : OK
 
 再以shop做分区并按访问量排序
 ```shell
-0: jdbc:hive2://0.0.0.0:10000> select shop, user_id,  
-. . . . . . . . . . . . . . .> row_number() over(partition by shop order by count desc ) rank 
+0: jdbc:hive2://0.0.0.0:10000> select shop, user_id, count,
+. . . . . . . . . . . . . . .> row_number() over(partition by shop order by count desc ) rank
 . . . . . . . . . . . . . . .> from (
-. . . . . . . . . . . . . . .>   select shop, user_id, count(user_id) count from visit group by shop, user_id order by shop,user_id, count
-. . . . . . . . . . . . . . .>   ) t1;
+. . . . . . . . . . . . . . .>   select shop, user_id, count(user_id) count from visit group by shop, user_id
+. . . . . . . . . . . . . . .> ) t1;
 ... 
 INFO  : OK
-+-------+----------+-------+
-| shop  | user_id  | rank  |
-+-------+----------+-------+
-| a     | u5       | 1     |
-| a     | u1       | 2     |
-| a     | u2       | 3     |
-| a     | u3       | 4     |
-| b     | u4       | 1     |
-| b     | u1       | 2     |
-| b     | u5       | 3     |
-| b     | u2       | 4     |
-| c     | u2       | 1     |
-| c     | u6       | 2     |
-| c     | u3       | 3     |
-+-------+----------+-------+
++-------+----------+--------+-------+
+| shop  | user_id  | count  | rank  |
++-------+----------+--------+-------+
+| a     | u5       | 3      | 1     |
+| a     | u1       | 3      | 2     |
+| a     | u2       | 2      | 3     |
+| a     | u3       | 1      | 4     |
+| b     | u4       | 2      | 1     |
+| b     | u1       | 2      | 2     |
+| b     | u5       | 1      | 3     |
+| b     | u2       | 1      | 4     |
+| c     | u2       | 2      | 1     |
+| c     | u6       | 1      | 2     |
+| c     | u3       | 1      | 3     |
++-------+----------+--------+-------+
 11 rows selected (26.162 seconds)
 ```
 
 最后筛选出排序的rank<=3即可
 
 ```shell
-0: jdbc:hive2://0.0.0.0:10000> select * from (select shop, user_id,  
+0: jdbc:hive2://0.0.0.0:10000> select * from (
+. . . . . . . . . . . . . . .>     select shop, user_id, count,
 . . . . . . . . . . . . . . .>     row_number() over(partition by shop order by count desc ) rank
 . . . . . . . . . . . . . . .>     from (
-. . . . . . . . . . . . . . .>         select shop, user_id, count(user_id) count from visit group by shop, user_id order by shop,user_id, count
+. . . . . . . . . . . . . . .>         select shop, user_id, count(user_id) count from visit group by shop, user_id
 . . . . . . . . . . . . . . .>     ) t1
 . . . . . . . . . . . . . . .> ) t2 where rank <=3;
 ...
 INFO  : OK
 
-+----------+-------------+----------+
-| t2.shop  | t2.user_id  | t2.rank  |
-+----------+-------------+----------+
-| a        | u5          | 1        |
-| a        | u1          | 2        |
-| a        | u2          | 3        |
-| b        | u4          | 1        |
-| b        | u1          | 2        |
-| b        | u5          | 3        |
-| c        | u2          | 1        |
-| c        | u6          | 2        |
-| c        | u3          | 3        |
-+----------+-------------+----------+
++----------+-------------+-----------+----------+
+| t2.shop  | t2.user_id  | t2.count  | t2.rank  |
++----------+-------------+-----------+----------+
+| a        | u5          | 3         | 1        |
+| a        | u1          | 3         | 2        |
+| a        | u2          | 2         | 3        |
+| b        | u4          | 2         | 1        |
+| b        | u1          | 2         | 2        |
+| b        | u5          | 1         | 3        |
+| c        | u2          | 2         | 1        |
+| c        | u6          | 1         | 2        |
+| c        | u3          | 1         | 3        |
++----------+-------------+-----------+----------+
+
 9 rows selected (25.355 seconds)
 
 ```
