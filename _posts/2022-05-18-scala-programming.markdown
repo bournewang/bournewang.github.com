@@ -540,3 +540,81 @@ val res63: String = red
 scala> ca(0)._2
 val res64: String = #ff0000
 ```
+
+
+## 1.5 Range
+```scala
+scala> var r1 = Range(1, 10)
+var r1: scala.collection.immutable.Range.Exclusive = Range 1 until 10
+
+scala> r1.foreach(x=>print(x.toString + ","))
+1,2,3,4,5,6,7,8,9,
+
+scala> val r2 = 1 to 10
+val r2: scala.collection.immutable.Range.Inclusive = Range 1 to 10
+
+scala> r2.foreach(x=>print(x.toString + ","))
+1,2,3,4,5,6,7,8,9,10,
+
+scala> val r3 = 1 until 10
+val r3: scala.collection.immutable.Range = Range 1 until 10
+
+scala> r3.foreach(x=>print(x.toString + ","))
+1,2,3,4,5,6,7,8,9,
+
+scala> val r4 = 1 until 10 by 2
+val r4: scala.collection.immutable.Range = inexact Range 1 until 10 by 2
+
+scala> r4.foreach(x=>print(x.toString + ","))
+1,3,5,7,9,
+
+scala> r4.max
+val res136: Int = 9
+
+scala> r4.min
+val res137: Int = 1
+
+scala> r4.sum
+val res138: Int = 25
+
+scala> r4.forall(x => x>2)
+val res139: Boolean = false
+
+scala> r4.forall(x => x>0)
+val res141: Boolean = true
+
+scala> r4.mkString(",")
+val res143: String = 1,3,5,7,9
+```
+## 1.6 Iterator
+```scala
+scala> val colors = Map("red" -> "#ff0000", "yellow" -> "#ffff00", "blue" -> "#0000ff")
+val colors: scala.collection.immutable.Map[String,String] = Map(red -> #ff0000, yellow -> #ffff00, blue -> #0000ff)
+
+scala> val it = colors.iterator
+val it: Iterator[(String, String)] = <iterator>
+
+scala> while (it.hasNext) {
+     |  val n = it.next();
+     |  println(n._1 +" -> " +n._2)
+     | }
+red -> #ff0000
+yellow -> #ffff00
+blue -> #0000ff
+
+scala> val ita = Iterator(20,40,2,50,69, 90)
+val ita: Iterator[Int] = <iterator>
+
+scala> ita.length
+val res79: Int = 6
+
+scala> ita.max
+val res80: Int = 90
+
+scala> ita.min
+java.lang.UnsupportedOperationException: empty.min
+  at scala.collection.IterableOnceOps.min(IterableOnce.scala:914)
+  at scala.collection.IterableOnceOps.min$(IterableOnce.scala:912)
+  at scala.collection.AbstractIterator.min(Iterator.scala:1293)
+  ... 32 elided
+```
