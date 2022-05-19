@@ -8,9 +8,23 @@ tags:
     - Scala
 ---
 
-Array/List/Set have some common features and functions, such as: size/min/max/sum/head/tail/concat/forall/foreach/map.
+Array/List/Set have some common features and functions, such as: 
+* _size_
+* _min_
+* _max_
+* _sum_
+* _head_
+* _tail_
+* _concat_
+* _forall_
+* _foreach_
+* _map_
+* _filter_
+* _find_
+* _mkString_
 
-## 1. Array
+# 1. Collection
+## 1.1 Array
 ```scala
 scala> var a1 = List(1,2,3)
 var a1: List[Int] = List(1, 2, 3)
@@ -90,7 +104,7 @@ World
 val res170: Array[Unit] = Array((), ())
 ```
 
-## 2.List
+## 1.2 List
 ```scala
 scala> val langs = List("Python", "Java", "Scala")
 val langs: List[String] = List(Python, Java, Scala)
@@ -205,12 +219,6 @@ val res206: String = 1234
 scala> langs.mkString
 val res207: String = PythonJavaScala
 
-scala> langs.mkString('-')
-                      ^
-       error: type mismatch;
-        found   : Char('-')
-        required: String
-
 scala> langs.mkString("-")
 val res209: String = Python-Java-Scala
 
@@ -239,7 +247,7 @@ scala> nums.toString
 val res218: String = List(1, 2, 3, 4)
 ```
 
-## 3. Set
+## 1.3 Set
 All elements in Set are unique.
 ```scala
 scala> val set = Set(1,2,3)
@@ -317,11 +325,6 @@ val res245: scala.collection.immutable.Set[Int] = Set(2, 3)
 scala> set.&(set1)
 val res246: scala.collection.immutable.Set[Int] = Set(2, 3)
 
-scala> set1.count()
-                 ^
-       error: not enough arguments for method count: (p: Int => Boolean): Int.
-       Unspecified value parameter p.
-
 scala> set1.count((x:Int) => x>0)
 val res251: Int = 3
 
@@ -334,12 +337,6 @@ val res253: scala.collection.mutable.Set[Int] = HashSet(2, 3, 4)
 scala> set1.drop(1)
 val res254: scala.collection.mutable.Set[Int] = HashSet(3, 4)
 
-scala> set1.exists(1)
-                   ^
-       error: type mismatch;
-        found   : Int(1)
-        required: Int => Boolean
-
 scala> set1.exists((x:Int) => x>2)
 val res256: Boolean = true
 
@@ -348,12 +345,6 @@ val res257: Option[Int] = Some(4)
 
 scala> set
 val res258: scala.collection.immutable.Set[Int] = Set(1, 2, 3)
-
-scala> set.forall((x:Int) => println(x))
-                                    ^
-       error: type mismatch;
-        found   : Unit
-        required: Boolean
 
 scala> set.forall((x:Int) => x>1)
 val res260: Boolean = false
@@ -396,4 +387,156 @@ val res271: Array[Int] = Array(1, 2, 3)
 scala> set.toString
 val res273: String = Set(1, 2, 3)
 
+```
+
+## 1.4 Map
+```scala
+scala> val colors = Map("red" -> "#ff0000", "yellow" -> "#ffff00", "blue" -> "#0000ff")
+val colors: scala.collection.immutable.Map[String,String] = Map(red -> #ff0000, yellow -> #ffff00, blue -> #0000ff)
+
+scala> colors.keys
+val res0: Iterable[String] = Set(red, yellow, blue)
+
+scala> colors.values
+val res1: Iterable[String] = Iterable(#ff0000, #ffff00, #0000ff)
+
+scala> colors("red")
+val res2: String = #ff0000
+
+scala> colors("blue")
+val res3: String = #0000ff
+
+scala> val colors2 = Map("red" -> "#FF0000",
+     |                         "azure" -> "#F0FFFF",
+     |                         "peru" -> "#CD853F")
+val colors2: scala.collection.immutable.Map[String,String] = Map(red -> #FF0000, azure -> #F0FFFF, peru -> #CD853F)
+
+scala>
+
+scala> colors ++ colors2
+val res4: scala.collection.immutable.Map[String,String] = HashMap(blue -> #0000ff, azure -> #F0FFFF, peru -> #CD853F, yellow -> #ffff00, red -> #FF0000)
+
+scala> colors.++(colors2)
+val res5: scala.collection.immutable.Map[String,String] = HashMap(blue -> #0000ff, azure -> #F0FFFF, peru -> #CD853F, yellow -> #ffff00, red -> #FF0000)
+
+scala> colors
+val res6: scala.collection.immutable.Map[String,String] = Map(red -> #ff0000, yellow -> #ffff00, blue -> #0000ff)
+
+scala> colors.keys.foreach(i => println(i+" => "+colors(i)))
+red => #ff0000
+yellow => #ffff00
+blue => #0000ff
+
+scala> colors.contains("red")
+val res10: Boolean = true
+
+scala> colors.contains("black")
+val res11: Boolean = false
+
+scala> colors.get("yellow")
+val res12: Option[String] = Some(#ffff00)
+
+scala> colors.addString(new StringBuilder)
+val res13: StringBuilder = red -> #ff0000yellow -> #ffff00blue -> #0000ff
+
+scala> colors.addString(new StringBuilder).toString
+val res14: String = red -> #ff0000yellow -> #ffff00blue -> #0000ff
+
+scala> colors
+val res16: scala.collection.immutable.Map[String,String] = Map(red -> #ff0000, yellow -> #ffff00, blue -> #0000ff)
+
+scala> colors.drop(1)
+val res19: scala.collection.immutable.Map[String,String] = Map(yellow -> #ffff00, blue -> #0000ff)
+
+scala> colors
+val res20: scala.collection.immutable.Map[String,String] = Map(red -> #ff0000, yellow -> #ffff00, blue -> #0000ff)
+
+scala> colors.dropRight(1)
+val res21: scala.collection.immutable.Map[String,String] = Map(red -> #ff0000, yellow -> #ffff00)
+
+scala> colors
+val res24: scala.collection.immutable.Map[String,String] = Map(red -> #ff0000, yellow -> #ffff00, blue -> #0000ff)
+
+scala> colors.exists(x => x._1 == "red")
+val res27: Boolean = true
+
+scala> colors.exists(x => x._1 == "red" && x._2.length > 0)
+val res28: Boolean = true
+
+def exists(p: ((String, String)) => Boolean): Boolean
+
+scala> colors.filter(x => x._1.startsWith("r"))
+val res30: scala.collection.immutable.Map[String,String] = Map(red -> #ff0000)
+
+scala> colors.find(x => x._1.startsWith("r"))
+val res34: Option[(String, String)] = Some((red,#ff0000))
+
+scala> colors.foreach(x => x._1.startsWith("r"))
+
+scala> colors.foreach(x => println(x._1 + " -> "+x._2))
+red -> #ff0000
+yellow -> #ffff00
+blue -> #0000ff
+
+scala> colors.init
+val res37: scala.collection.immutable.Map[String,String] = Map(red -> #ff0000, yellow -> #ffff00)
+
+scala> colors.isEmpty
+val res39: Boolean = false
+
+scala> colors.keys
+val res40: Iterable[String] = Set(red, yellow, blue)
+
+def last: (String, String)
+
+scala> colors.last
+val res41: (String, String) = (blue,#0000ff)
+
+scala> colors.max
+val res42: (String, String) = (yellow,#ffff00)
+
+scala> val nums = Map("a" -> 10, "b" -> 20, "c" -> 15)
+val nums: scala.collection.immutable.Map[String,Int] = Map(a -> 10, b -> 20, c -> 15)
+
+scala> nums.max
+val res43: (String, Int) = (c,15)
+
+scala> nums.min
+val res44: (String, Int) = (a,10)
+
+scala> colors.mkString
+val res46: String = red -> #ff0000yellow -> #ffff00blue -> #0000ff
+
+scala> colors.mkString("; ")
+val res47: String = red -> #ff0000; yellow -> #ffff00; blue -> #0000ff
+
+scala> colors.size
+val res49: Int = 3
+
+scala> nums
+val res52: scala.collection.immutable.Map[String,Int] = Map(a -> 10, b -> 20, c -> 15)
+
+def sum[B >: (String, Int)](implicit num: scala.math.Numeric[B]): B
+def sum(implicit num: scala.math.Numeric[(String, Int)]): (String, Int) (deprecated)
+
+scala> colors.tail
+val res54: scala.collection.immutable.Map[String,String] = Map(yellow -> #ffff00, blue -> #0000ff)
+
+scala> colors.take(1)
+val res55: scala.collection.immutable.Map[String,String] = Map(red -> #ff0000)
+
+scala> colors.takeRight(1)
+val res56: scala.collection.immutable.Map[String,String] = Map(blue -> #0000ff)
+
+scala> val ca=colors.toArray
+val ca: Array[(String, String)] = Array((red,#ff0000), (yellow,#ffff00), (blue,#0000ff))
+
+scala> ca(0)
+val res62: (String, String) = (red,#ff0000)
+
+scala> ca(0)._1
+val res63: String = red
+
+scala> ca(0)._2
+val res64: String = #ff0000
 ```
