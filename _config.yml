@@ -1,6 +1,6 @@
 # Site settings
 name: 誉锟
-title: 誉锟de大数据之路
+title: Yet Another Bigdata Developer
 SEOTitle: 誉锟的博客 | 誉锟大数据
 header-img: img/home-bg.jpg
 email: xiaopei0206@icloud.com
@@ -60,7 +60,7 @@ kramdown:
 
 
 # Disqus settings
-disqus_username: Yukun
+disqus_username: yukun
 
 # Netease settings
 netease_comment: false
