@@ -115,13 +115,13 @@ rdd11 = sc.parallelize(range(1,5))
 rdd11.collect()
 // [1, 2, 3, 4]
 
-rdd2.sum()
+rdd11.sum()
 // 10
 
-rdd2.max()
+rdd11.max()
 // 4
 
-rdd2.min()
+rdd11.min()
 // 1
 
 sc.stop()
