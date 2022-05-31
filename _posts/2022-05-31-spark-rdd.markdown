@@ -35,6 +35,30 @@ Job由Action触发生成，一个Application产生多个Job。
 每个Job分成几个Stage，分Shuffle Map Stage和Result Stage。  
 Stage的划分依据是 根据RDD之间依赖的关系找出开销最小的调度方法。  
 
+## Transformations & Actions
+
+| Name          | Type| Prototype                         | Description                                          |
+|---------------|------|-----------------------------------|------------------------------------------------------|
+| glom          |Transform| rdd.glom()                        | 将RDD中每一个分区中类型为T的元素转换成Array[T]，每一个分区就只有一个数组元素。        |
+| coalesce      |Transform| rdd.coalesce(N,[isShuffle=False]) | 将RDD进行重新分为N个区                                        |
+| combineByKey  |Transform| rdd.combineByKey(F, M, C)         |                                                      |
+| distinct      |Transform| rdd.distinct()                    | 去除重复的元素                                              |
+| filter        |Transform| rdd.filter(func)                  | 过滤元素|
+| flatMap       |Transform| rdd.flatMap(func)                 | 对每个元素执行函数并将结果Flat处理｜
+| flatMapValues |Transform| rdd.flatMapValues(func)           | 对RDD元素格式为KV对中的Value进行func定义的逻辑处理 |
+| foldByKey     |Transform| rdd.foldByKey(value, func)        | 对元素为KV格式的RDD的每个元素按照Key进行func定义的逻辑进行处理 |
+| countByValue  |Action| rdd.countByValue()                | 统计RDD中各个Value出现的次数，并返回一个字典                           |
+| first         |Action| rdd.first()                       | get first element in rdd                             |
+| top           |Action| rdd.top(N)                        | get top N number elements in rdd after sort          |
+| take          |Action| rdd.take(N)                       | get N elements in rdd                                |
+| sum           |Action| rdd.sum()                         | get sum of all elements in rdd                       |
+| count         |Action| rdd.count()                       | get number of elements in rdd                        |
+| collect       |Action| rdd.collect()                     | 将RDD类型的数据转化为数组，同时会从集群中拉取数据到driver端，这对于少量RDD数据的观察非常有用 |
+| collectAsMap  |Action| rdd.collectAsMap()                | 将键值RDD转换为Map映射以保留其键值结构                               |
+| countByKey    |Action| rdd.countByKey()                  | 统计rdd中每个key的数量                                       |
+| countByValue  |Action| rdd.countByValue()                | 统计rdd中每个唯一数值的数量 ｜
+
+
 ## Usage
 ```python
 import findspark
