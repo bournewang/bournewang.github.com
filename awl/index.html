@@ -20,8 +20,8 @@
         /*#content > div{width: 100%;}*/
         /*#meanings{width: 100%; overflow-y: scroll;border: 2px solid darkred;background: lightblue;padding: 0.5em;}*/
         #definition, .sentences{overflow-y: scroll; padding: .5em; border-style: ridge; border-width: 0.3em; border-radius: 0.5em; background: lightyellow;}
-        #definition{max-height: 30vh;}
-        .sentences {max-height: 50vh;}
+        #definition{max-height: 28vh;}
+        .sentences {max-height: 45vh;}
         span.delete{text-decoration: line-through;}
         span.current{background: #4cae4c; color: whitesmoke;}
         span.partOfSpeech {color: darkred;}
@@ -78,11 +78,14 @@
 
         <div class="col-lg-9 col-md-9" id="content" >
             Definitions:
-            <div v-html="word_meanings" id="definition"></div>
-            Sentences:
+            <div v-html="word_meanings" id="definition" ></div>
+            <div class="m-1">
+                Sentences: <button @click="click_showtrans" class="btn btn-primary float-lg-end">{{show_trans ? "Hide" : "Show"}} Translation</button>
+                <div class="clearfix"></div>
+            </div>
             <div class="row">
-                <div class="col-lg-6 sentences" v-html="word_html"></div>
-                <div class="col-lg-6 sentences" v-html="trans_html"></div>
+                <div class="sentences " v-html="word_html" :class="show_trans ? 'col-lg-6 ' : 'col-lg-12 '"></div>
+                <div class="col-lg-6 sentences" v-html="trans_html" v-if="show_trans"></div>
             </div>
         </div>
     </div>
@@ -102,6 +105,7 @@
                 word_html: null,
                 word_meanings: null,
                 trans_html: null,
+                show_trans: false,
                 mastered_words: []
             }
         },
@@ -130,6 +134,9 @@
             }
         },
         methods: {
+            click_showtrans() {
+                this.show_trans = !this.show_trans
+            },
             clickword (word){
                 console.log("you click word: "+word)
                 this.current_word = word
