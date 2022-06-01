@@ -28,14 +28,17 @@
         .example {font-style: italic;text-decoration: underline;}
     </style>
 </head>
-<body>
+<body id="app" >
 
 <header>
     <h1>Academic Word List exercise</h1>
     <span>The Academic Word List (AWL) is a list of 570 of the most common academic words found in academic texts. Below is the full word list.</span>
+
+    <button @click="click_showtrans" class="btn btn-sm btn-primary float-lg-end">{{show_trans ? "Hide" : "Show"}} Translation</button>
+    <div class="clearfix"></div>
 </header>
 <hr>
-<div id="app" class="container">
+<div class="container">
     <div class="row">
         <div class="col-lg-3 col-md-3">
             <ul class="nav nav-tabs" id="words-tab" role="tablist">
@@ -77,14 +80,16 @@
 
         <div class="col-lg-9 col-md-9" id="content" >
             Definitions:
-            <div v-html="word_meanings" id="definition" ></div>
-            <div class="m-1">
-                Sentences: <button @click="click_showtrans" class="btn btn-sm btn-primary float-lg-end">{{show_trans ? "Hide" : "Show"}} Translation</button>
-                <div class="clearfix"></div>
+            <div class="row" id="definition">
+                <div v-html="word_meanings" :class="show_trans ? 'col-lg-6 ' : 'col-lg-12 '"></div>
+                <div v-html="trans_meanings" class="col-lg-6" v-if="show_trans"></div>
             </div>
-            <div class="row">
-                <div class="sentences " v-html="word_html" :class="show_trans ? 'col-lg-6 ' : 'col-lg-12 '"></div>
-                <div class="col-lg-6 sentences" v-html="trans_html" v-if="show_trans"></div>
+            <div class="m-1">
+                Examples:
+            </div>
+            <div class="row sentences">
+                <div v-html="word_html" :class="show_trans ? 'col-lg-6 ' : 'col-lg-12 '"></div>
+                <div v-html="trans_html" class="col-lg-6" v-if="show_trans"></div>
             </div>
         </div>
     </div>
@@ -102,6 +107,7 @@
                 awl: [],
                 word_html: null,
                 word_meanings: null,
+                trans_meanings: null,
                 trans_html: null,
                 show_trans: true,
                 mastered_words: []
@@ -146,7 +152,7 @@
                 })
 
                 that = this
-                axios.get("/awl/words/"+word+".html").then(function(res) {
+                axios.get("/awl/example/en/"+word+".html").then(function(res) {
                     // $("#content").html(res.body.innerHTML)
                     console.log(res.data)
 
@@ -154,7 +160,7 @@
                     that.word_html += "<div style='text-align: right;font-size:.8em; font-style: italic;'><a href='https://sentencedict.com/' target='_blank'>https://sentencedict.com/</a> provide data</div>";
                 })
 
-                axios.get("/awl/zh-CN/"+word+".html").then(function(res) {
+                axios.get("/awl/example/zh-CN/"+word+".html").then(function(res) {
                     // $("#content").html(res.body.innerHTML)
                     console.log(res.data)
 
@@ -162,35 +168,42 @@
                     // that.word_html += "<div style='text-align: right;'><a href='https://sentencedict.com/' target='_blank'>https://sentencedict.com/</a> provide data</div>";
                 })
 
-                axios.get("https://api.dictionaryapi.dev/api/v2/entries/en/"+word)
-                    .then(function(res){
-                        var exp = res.data[0];
-                        var word = exp.word;
+                axios.get("/awl/dict/en/"+word+".html").then(function(res) {
+                    that.word_meanings = res.data
+                })
+                axios.get("/awl/dict/zh-CN/"+word+".html").then(function(res) {
+                    that.trans_meanings = res.data
+                })
 
-                        var detail = '';
-                        for (var i=0; i< exp.meanings.length; i++) {
-                            var meaning = exp.meanings[i];
-                            detail += "<div class='meaning'>";
-                            if (meaning.partOfSpeech)
-                                detail += "<span class='partOfSpeech'>"+ meaning.partOfSpeech + '</span><br/>';
-
-                            var def_length = meaning.definitions.length;
-                            for (var j=0; j<def_length; j++) {
-                                var definition = meaning.definitions[j];
-                                detail +=  "<div class='definition'>" + (def_length < 2 ? '' : (j+1)+'. ') + definition.definition + "</div>";
-                                if (definition.example)
-                                    detail += "<div class='example'>"+ definition.example + "</div>";
-                                if (definition.synonyms && definition.synonyms.length > 0)
-                                    detail += "<div class='synonyms'>synonyms: "
-                                        + definition.synonyms.slice(0,5).join(', ')
-                                        + (definition.synonyms.length > 5 ? '...' : '')
-                                        + "</div>";
-                            }
-                            detail += "</div>";
-                        }
-                        detail += "<div style='text-align: right;font-size:.8em; font-style: italic;'><a href='https://dictionaryapi.dev/' target='_blank'>https://dictionaryapi.dev/</a> provide data</div>";
-                        that.word_meanings = detail
-                    })
+                // axios.get("https://api.dictionaryapi.dev/api/v2/entries/en/"+word)
+                //     .then(function(res){
+                //         var exp = res.data[0];
+                //         var word = exp.word;
+                //
+                //         var detail = '';
+                //         for (var i=0; i< exp.meanings.length; i++) {
+                //             var meaning = exp.meanings[i];
+                //             detail += "<div class='meaning'>";
+                //             if (meaning.partOfSpeech)
+                //                 detail += "<span class='partOfSpeech'>"+ meaning.partOfSpeech + '</span><br/>';
+                //
+                //             var def_length = meaning.definitions.length;
+                //             for (var j=0; j<def_length; j++) {
+                //                 var definition = meaning.definitions[j];
+                //                 detail +=  "<div class='definition'>" + (def_length < 2 ? '' : (j+1)+'. ') + definition.definition + "</div>";
+                //                 if (definition.example)
+                //                     detail += "<div class='example'>"+ definition.example + "</div>";
+                //                 if (definition.synonyms && definition.synonyms.length > 0)
+                //                     detail += "<div class='synonyms'>synonyms: "
+                //                         + definition.synonyms.slice(0,5).join(', ')
+                //                         + (definition.synonyms.length > 5 ? '...' : '')
+                //                         + "</div>";
+                //             }
+                //             detail += "</div>";
+                //         }
+                //         detail += "<div style='text-align: right;font-size:.8em; font-style: italic;'><a href='https://dictionaryapi.dev/' target='_blank'>https://dictionaryapi.dev/</a> provide data</div>";
+                //         that.word_meanings = detail
+                //     })
             },
             checkword (word) {
                 window.localStorage.setItem("mastered_words", this.mastered_words.toString())
