@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Academic Word List</title>
+    <!-- CSS only -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/css/bootstrap5.min.css" rel="stylesheet">
+    <link href="/css/bootstrap5-grid.min.css" rel="stylesheet">
+<!--    <script src="/js/bootstrap5.min.js" ></script>-->
+    <script src="/js/bootstrap5.bundle.min.js"></script>
+
+
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+        #left-column{height: 80vh;overflow-y: scroll;}
+        ul.word-list {height1: 80vh; width: 100%; list-style: none;}
+        #content1{height: 80vh; margin-top: 6vh;overflow-y1: scroll;background1: lightblue;padding: 0.5em;}
+        /*#content > div{width: 100%;}*/
+        /*#meanings{width: 100%; overflow-y: scroll;border: 2px solid darkred;background: lightblue;padding: 0.5em;}*/
+        #definition, .sentences{overflow-y: scroll; padding: .5em; border-style: ridge; border-width: 0.3em; border-radius: 0.5em; background: lightyellow;}
+        #definition{max-height: 30vh;}
+        .sentences {max-height: 50vh;}
+        span.delete{text-decoration: line-through;}
+        span.current{background: #4cae4c; color: whitesmoke;}
+        span.partOfSpeech {color: darkred;}
+        em{font-style: normal;font-weight: bold; background1: lightgreen;}
+        .example {font-style: italic;text-decoration: underline;}
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Academic Word List exercise</h1>
+    <span>The Academic Word List (AWL) is a list of 570 of the most common academic words found in academic texts. Below is the full word list.</span>
+</header>
+<hr>
+<div id="app" class="container">
+    <div class="row">
+        <div class="col-lg-3 col-md-3">
+            <ul class="nav nav-tabs" id="words-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">AWL</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Mastered</button>
+                </li>
+            </ul>
+            <div class="tab-content border-start border-bottom border-end rounded-bottom" id="left-column">
+                <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                    <ul class="word-list">
+                        <template v-for="(word, i) in awl">
+                            <li v-if="mastered_words.indexOf(word) < 0">
+                                <input type="checkbox" :value="word" v-model="mastered_words" @change="checkword(word)"> &nbsp;
+                                {{i+1}}.&nbsp;
+                                <span :class="word + (mastered_words.indexOf(word) > -1 ? ' delete' : '')" @click="clickword(word)">{{word}}</span>
+                                <hr v-if="(i+1) % 10 == 0">
+                            </li>
+                        </template>
+                    </ul>
+                </div>
+                <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                    <ul class="word-list">
+                        <template v-for="(word, i) in awl">
+                            <li v-if="mastered_words.indexOf(word) >= 0">
+                                <input type="checkbox" :value="word" v-model="mastered_words" @change="checkword(word)"> &nbsp;
+                                {{i+1}}.&nbsp;
+                                <span :class="word + (mastered_words.indexOf(word) > -1 ? ' delete' : '')" @click="clickword(word)">{{word}}</span>
+                                <hr v-if="(i+1) % 10 == 0">
+                            </li>
+                        </template>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-9 col-md-9" id="content" >
+            Definitions:
+            <div v-html="word_meanings" id="definition"></div>
+            Sentences:
+            <div class="row">
+                <div class="col-lg-6 sentences" v-html="word_html"></div>
+                <div class="col-lg-6 sentences" v-html="trans_html"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="/js/jquery.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+    const Counter = {
+        data() {
+            return {
+                counter: 0,
+                current_word: null,
+                awl: [],
+                word_html: null,
+                word_meanings: null,
+                trans_html: null,
+                mastered_words: []
+            }
+        },
+        mounted() {
+            // this.awl = AWL
+            // this.current_word = AWL[0]
+            that = this
+            axios.get("/awl/awl.json").then(function(res) {
+                that.awl = res.data
+                that.current_word = that.awl[0]
+                that.clickword(that.current_word)
+            })
+
+            const triggerTabList = document.querySelectorAll('#words-tab button')
+            triggerTabList.forEach(triggerEl => {
+                const tabTrigger = new bootstrap.Tab(triggerEl)
+
+                triggerEl.addEventListener('click', event => {
+                    event.preventDefault()
+                    tabTrigger.show()
+                })
+            })
+
+            if (words = window.localStorage.getItem("mastered_words")){
+                this.mastered_words = words.split(',')
+            }
+        },
+        methods: {
+            clickword (word){
+                console.log("you click word: "+word)
+                this.current_word = word
+                document.querySelectorAll('.current').forEach(span => {
+                    span.classList.remove('current')
+                })
+                document.querySelectorAll('.'+word).forEach(span => {
+                    span.classList.add("current")
+                })
+
+                that = this
+                axios.get("/awl/words/"+word+".html").then(function(res) {
+                    // $("#content").html(res.body.innerHTML)
+                    console.log(res.data)
+
+                    that.word_html = res.data
+                    that.word_html += "<div style='text-align: right;font-size:.8em; font-style: italic;'><a href='https://sentencedict.com/' target='_blank'>https://sentencedict.com/</a> provide data</div>";
+                })
+
+                axios.get("/awl/zh-CN/"+word+".html").then(function(res) {
+                    // $("#content").html(res.body.innerHTML)
+                    console.log(res.data)
+
+                    that.trans_html = res.data
+                    // that.word_html += "<div style='text-align: right;'><a href='https://sentencedict.com/' target='_blank'>https://sentencedict.com/</a> provide data</div>";
+                })
+
+                $.get("https://api.dictionaryapi.dev/api/v2/entries/en/"+word)
+                    .done(function(res){
+                        // insert_meanings(res)
+                        // insert_meanings(res)
+                        // {
+                            var exp = res[0];
+                            var word = exp.word;
+            //                 var sound = chrome.runtime.getURL('/img/sound.png');
+            //                 for (var p=0; p<exp.phonetics.length; p++) {
+            //                     var phonetic = exp.phonetics[p];
+            //                     if (!phonetic.audio) continue;
+            //                     var txt = "";
+            //                     if (phonetic.text) txt = "<span class='phonetic'>["+phonetic.text+"]</span>";
+            //                     txt += "<button class='sound' audio='https:"+phonetic.audio+"'>\
+            //     <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>\
+            //         <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z' />\
+            //     </svg>\
+            // </button>"
+            //                     $("#d-"+word+" ."+class_prefix+"word").after(txt)
+            //                 }
+
+                            var detail = '';
+                            for (var i=0; i< exp.meanings.length; i++) {
+                                var meaning = exp.meanings[i];
+                                detail += "<div class='meaning'>";
+                                if (meaning.partOfSpeech)
+                                    detail += "<span class='partOfSpeech'>"+ meaning.partOfSpeech + '</span><br/>';
+
+                                var def_length = meaning.definitions.length;
+                                for (var j=0; j<def_length; j++) {
+                                    var definition = meaning.definitions[j];
+                                    detail +=  "<div class='definition'>" + (def_length < 2 ? '' : (j+1)+'. ') + definition.definition + "</div>";
+                                    if (definition.example)
+                                        detail += "<div class='example'>examples: "+ definition.example + "</div>";
+                                    if (definition.synonyms && definition.synonyms.length > 0)
+                                        detail += "<div class='synonyms'>synonyms: "
+                                            + definition.synonyms.slice(0,5).join(', ')
+                                            + (definition.synonyms.length > 5 ? '...' : '')
+                                            + "</div>";
+                                }
+                                detail += "</div>";
+                            }
+                            // $("#d-"+word+" .meanings").html(detail)
+                        detail += "<div style='text-align: right;font-size:.8em; font-style: italic;'><a href='https://dictionaryapi.dev/' target='_blank'>https://dictionaryapi.dev/</a> provide data</div>";
+                        that.word_meanings = detail
+                        // }
+                    })
+                    .fail(function(){
+                        console.log("word "+word+" failed, delete")
+                        $("#d-"+word).remove();
+                        delete uniq_words[word];
+                    })
+            },
+            checkword (word) {
+                console.log("check word: "+word)
+                console.log("mastered words: ")
+                console.log(this.mastered_words)
+                window.localStorage.setItem("mastered_words", this.mastered_words.toString())
+            }
+        },
+        computed: {
+            sentense_url: function(){
+                return "https://sentencedict.com/"+this.current_word+".html"
+            }
+        }
+
+    }
+
+    Vue.createApp(Counter).mount('#app')
+</script>
+</body>
+</html>
