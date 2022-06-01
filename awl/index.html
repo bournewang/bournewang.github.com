@@ -11,7 +11,6 @@
 <!--    <script src="/js/bootstrap5.min.js" ></script>-->
     <script src="/js/bootstrap5.bundle.min.js"></script>
 
-
     <script src="https://unpkg.com/vue@next"></script>
     <style>
         #left-column{height: 80vh;overflow-y: scroll;}
@@ -19,9 +18,9 @@
         #content1{height: 80vh; margin-top: 6vh;overflow-y1: scroll;background1: lightblue;padding: 0.5em;}
         /*#content > div{width: 100%;}*/
         /*#meanings{width: 100%; overflow-y: scroll;border: 2px solid darkred;background: lightblue;padding: 0.5em;}*/
-        #definition, .sentences{overflow-y: scroll; padding: .5em; border-style: ridge; border-width: 0.3em; border-radius: 0.5em; background: lightyellow;}
+        #definition, .sentences{overflow-y: scroll; padding: .5em; border-style: ridge; border-width: 0.3em; border-radius: 0.5em; background1: lightyellow;}
         #definition{max-height: 28vh;}
-        .sentences {max-height: 45vh;}
+        .sentences {max-height: 50vh;}
         span.delete{text-decoration: line-through;}
         span.current{background: #4cae4c; color: whitesmoke;}
         span.partOfSpeech {color: darkred;}
@@ -80,7 +79,7 @@
             Definitions:
             <div v-html="word_meanings" id="definition" ></div>
             <div class="m-1">
-                Sentences: <button @click="click_showtrans" class="btn btn-primary float-lg-end">{{show_trans ? "Hide" : "Show"}} Translation</button>
+                Sentences: <button @click="click_showtrans" class="btn btn-sm btn-primary float-lg-end">{{show_trans ? "Hide" : "Show"}} Translation</button>
                 <div class="clearfix"></div>
             </div>
             <div class="row">
@@ -92,7 +91,6 @@
 
 </div>
 
-<script src="/js/jquery.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 <script>
@@ -105,7 +103,7 @@
                 word_html: null,
                 word_meanings: null,
                 trans_html: null,
-                show_trans: false,
+                show_trans: true,
                 mastered_words: []
             }
         },
@@ -164,63 +162,37 @@
                     // that.word_html += "<div style='text-align: right;'><a href='https://sentencedict.com/' target='_blank'>https://sentencedict.com/</a> provide data</div>";
                 })
 
-                $.get("https://api.dictionaryapi.dev/api/v2/entries/en/"+word)
-                    .done(function(res){
-                        // insert_meanings(res)
-                        // insert_meanings(res)
-                        // {
-                            var exp = res[0];
-                            var word = exp.word;
-            //                 var sound = chrome.runtime.getURL('/img/sound.png');
-            //                 for (var p=0; p<exp.phonetics.length; p++) {
-            //                     var phonetic = exp.phonetics[p];
-            //                     if (!phonetic.audio) continue;
-            //                     var txt = "";
-            //                     if (phonetic.text) txt = "<span class='phonetic'>["+phonetic.text+"]</span>";
-            //                     txt += "<button class='sound' audio='https:"+phonetic.audio+"'>\
-            //     <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>\
-            //         <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z' />\
-            //     </svg>\
-            // </button>"
-            //                     $("#d-"+word+" ."+class_prefix+"word").after(txt)
-            //                 }
+                axios.get("https://api.dictionaryapi.dev/api/v2/entries/en/"+word)
+                    .then(function(res){
+                        var exp = res.data[0];
+                        var word = exp.word;
 
-                            var detail = '';
-                            for (var i=0; i< exp.meanings.length; i++) {
-                                var meaning = exp.meanings[i];
-                                detail += "<div class='meaning'>";
-                                if (meaning.partOfSpeech)
-                                    detail += "<span class='partOfSpeech'>"+ meaning.partOfSpeech + '</span><br/>';
+                        var detail = '';
+                        for (var i=0; i< exp.meanings.length; i++) {
+                            var meaning = exp.meanings[i];
+                            detail += "<div class='meaning'>";
+                            if (meaning.partOfSpeech)
+                                detail += "<span class='partOfSpeech'>"+ meaning.partOfSpeech + '</span><br/>';
 
-                                var def_length = meaning.definitions.length;
-                                for (var j=0; j<def_length; j++) {
-                                    var definition = meaning.definitions[j];
-                                    detail +=  "<div class='definition'>" + (def_length < 2 ? '' : (j+1)+'. ') + definition.definition + "</div>";
-                                    if (definition.example)
-                                        detail += "<div class='example'>examples: "+ definition.example + "</div>";
-                                    if (definition.synonyms && definition.synonyms.length > 0)
-                                        detail += "<div class='synonyms'>synonyms: "
-                                            + definition.synonyms.slice(0,5).join(', ')
-                                            + (definition.synonyms.length > 5 ? '...' : '')
-                                            + "</div>";
-                                }
-                                detail += "</div>";
+                            var def_length = meaning.definitions.length;
+                            for (var j=0; j<def_length; j++) {
+                                var definition = meaning.definitions[j];
+                                detail +=  "<div class='definition'>" + (def_length < 2 ? '' : (j+1)+'. ') + definition.definition + "</div>";
+                                if (definition.example)
+                                    detail += "<div class='example'>"+ definition.example + "</div>";
+                                if (definition.synonyms && definition.synonyms.length > 0)
+                                    detail += "<div class='synonyms'>synonyms: "
+                                        + definition.synonyms.slice(0,5).join(', ')
+                                        + (definition.synonyms.length > 5 ? '...' : '')
+                                        + "</div>";
                             }
-                            // $("#d-"+word+" .meanings").html(detail)
+                            detail += "</div>";
+                        }
                         detail += "<div style='text-align: right;font-size:.8em; font-style: italic;'><a href='https://dictionaryapi.dev/' target='_blank'>https://dictionaryapi.dev/</a> provide data</div>";
                         that.word_meanings = detail
-                        // }
-                    })
-                    .fail(function(){
-                        console.log("word "+word+" failed, delete")
-                        $("#d-"+word).remove();
-                        delete uniq_words[word];
                     })
             },
             checkword (word) {
-                console.log("check word: "+word)
-                console.log("mastered words: ")
-                console.log(this.mastered_words)
                 window.localStorage.setItem("mastered_words", this.mastered_words.toString())
             }
         },
@@ -229,7 +201,6 @@
                 return "https://sentencedict.com/"+this.current_word+".html"
             }
         }
-
     }
 
     Vue.createApp(Counter).mount('#app')
