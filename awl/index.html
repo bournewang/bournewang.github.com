@@ -28,6 +28,9 @@
         .reference{text-align: right;font-size:.8em; font-style: italic;}
         em{font-style: normal; background: yellow;}
         .example {font-style: italic;text-decoration: underline;}
+        #word-sound{display: none;}
+        #word-play{width: 1em; height: 1em;}
+        #word-play:hover{width: 1.1em; height: 1.1em;}
     </style>
 </head>
 <body id="app" >
@@ -81,7 +84,9 @@
         </div>
 
         <div class="col-lg-9 col-md-9" id="content" >
-            Definitions:
+            {{current_word}} <img src="/img/music-32.png" alt="" id="word-play" @click="wordplay">
+            <audio id="word-sound" controls :src="audio_url">
+            </audio>
             <div class="row" id="definition">
                 <div v-html="word_meanings" :class="show_trans ? 'col-lg-7 ' : 'col-lg-12 '"></div>
                 <div v-html="trans_meanings" class="col-lg-5 border-start" v-if="show_trans"></div>
@@ -170,11 +175,17 @@
             },
             checkword (word) {
                 window.localStorage.setItem("mastered_words", this.mastered_words.toString())
+            },
+            wordplay(){
+                document.getElementById('word-sound').play()
             }
         },
         computed: {
             sentense_url: function(){
                 return "https://sentencedict.com/"+this.current_word+".html"
+            },
+            audio_url: function(){
+                return 'https://dict.youdao.com/dictvoice?type=1&audio=' + this.current_word
             }
         }
     }
