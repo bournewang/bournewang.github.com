@@ -9,31 +9,21 @@ tags:
     - PySpark
 ---
 
+# Spark RDD - PySpark Word Count
+## 1. Prepare spark context
 ```python
 from pyspark import SparkContext
-```
-
-
-```python
 sc = SparkContext("local","PySpark Word Count Exmaple")
 ```
-
     /usr/local/lib/python3.6/site-packages/pyspark/context.py:238: FutureWarning: Python 3.6 support is deprecated in Spark 3.2.
       FutureWarning
 
 
-
+## 2. Read text file
 ```python
-tf = sc.textFile("/root/news1.txt", 3)
+tf = sc.textFile("/root/news.txt", 3)
+tf.take(10)
 ```
-
-
-```python
-tf.collect()
-```
-
-
-
 
     ['',
      'Missing Alabama prison official had sold home, was expected to retire before murder suspect escaped',
@@ -47,20 +37,13 @@ tf.collect()
      'The two are not related, according to investigators.']
 
 
+## 3. Split every row and put all the words into a list
 
 
 ```python
 tf1 = tf.flatMap(lambda line: line.split(" ")).filter(lambda w: w)
-```
-
-
-```python
 tf1.take(10)
 ```
-
-
-
-
     ['Missing',
      'Alabama',
      'prison',
@@ -73,20 +56,11 @@ tf1.take(10)
      'to']
 
 
-
-
+## 4. Set number 1 to every single word
 ```python
 tf2 = tf1.map(lambda w: (w,1))
-```
-
-
-```python
 tf2.take(10)
 ```
-
-
-
-
     [('Missing', 1),
      ('Alabama', 1),
      ('prison', 1),
@@ -99,59 +73,62 @@ tf2.take(10)
      ('to', 1)]
 
 
-
-
+## 5. Aggregate the second column for the same word(key)
 ```python
-tf3 = tf2.reduceByKey(lambda a,b:a+b).filter(lambda x:x[1] > 1)
-```
-
-
-```python
+tf3 = tf2.reduceByKey(lambda a,b:a+b)
 tf3.take(10)
 ```
 
+    [('Missing', 2),
+     ('prison', 5),
+     ('official', 3),
+     ('sold', 2),
+     ('before', 6),
+     ('Cole', 6),
+     ('seen', 6),
+     ('Ruiz', 2),
+     ('Fox', 10),
+     ('the', 72)]
 
 
-
-    [('official', 2),
-     ('Cole', 2),
-     ('seen', 2),
-     ('the', 4),
-     ('according', 3),
-     ('to', 6),
-     ('murder', 2),
-     ('escaped', 2),
-     ('Casey', 2),
-     ('and', 3)]
-
-
-
-
+## 6. Sort by the second column(word numbers) descendingly
 ```python
 tf4 = tf3.sortBy(lambda x: x[1], False)
-```
-
-
-```python
 tf4.take(10)
 ```
 
+    [('the', 72),
+     ('to', 63),
+     ('a', 51),
+     ('of', 50),
+     ('in', 40),
+     ('on', 33),
+     ('and', 32),
+     ('for', 26),
+     ('at', 24),
+     ('her', 23)]
 
 
+# Combine all these steps in one sentence
+```python
+tf.flatMap(lambda line: line.split(" "))\
+.filter(lambda x:x)\
+.map(lambda w:(w,1))\
+.reduceByKey(lambda a,b:a+b)\
+.sortBy(lambda x:x[1], False)\
+.take(10)
+```
 
-    [('to', 6),
-     ('the', 4),
-     ('White,', 4),
-     ('according', 3),
-     ('and', 3),
-     ('on', 3),
-     ('a', 3),
-     ('official', 2),
-     ('Cole', 2),
-     ('seen', 2)]
-
-
-
+    [('the', 72),
+     ('to', 63),
+     ('a', 51),
+     ('of', 50),
+     ('in', 40),
+     ('on', 33),
+     ('and', 32),
+     ('for', 26),
+     ('at', 24),
+     ('her', 23)]
 
 ```python
 sc.stop()
