@@ -40,7 +40,8 @@
     <h1>Academic Word List exercise</h1>
     <span>The Academic Word List (AWL) is a list of 570 of the most common academic words found in academic texts. Below is the full word list.</span>
 
-    <button @click="click_showtrans" class="btn btn-sm btn-primary float-lg-end">{{show_trans ? "Hide" : "Show"}} Translation</button>
+    <button @click="click_autoplay" class="btn btn-sm float-lg-end ms-3" :class="autoplay ? 'btn-info' : 'btn-primary'">{{autoplay ? "Disable" : "Enable"}} Autoplay</button>
+    <button @click="click_showtrans" class="btn btn-sm float-lg-end" :class="show_trans ? 'btn-info' : 'btn-primary'">{{show_trans ? "Hide" : "Show"}} Translation</button>
     <div class="clearfix"></div>
 </header>
 <hr>
@@ -86,7 +87,7 @@
 
         <div class="col-lg-9 col-md-9" id="content" >
             {{current_word}} <img src="/img/music-32.png" alt="" id="word-play" @click="wordplay">
-            <audio id="word-sound" controls :src="audio_url">
+            <audio id="word-sound" controls :src="audio_url" :autoplay="autoplay">
             </audio>
             <div class="row" id="definition">
                 <div v-html="word_meanings" :class="show_trans ? 'col-lg-7 ' : 'col-lg-12 '"></div>
@@ -118,6 +119,7 @@
                 trans_meanings: null,
                 trans_html: null,
                 show_trans: true,
+                autoplay: true,
                 mastered_words: []
             }
         },
@@ -148,6 +150,9 @@
         methods: {
             click_showtrans() {
                 this.show_trans = !this.show_trans
+            },
+            click_autoplay(){
+                this.autoplay = !this.autoplay
             },
             clickword (word){
                 console.log("you click word: "+word)
