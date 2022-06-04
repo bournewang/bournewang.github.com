@@ -48,7 +48,7 @@
 <hr>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-3 col-md-3">
+        <div class="col-3">
             <ul class="nav nav-tabs" id="words-tab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">AWL</button>
@@ -86,20 +86,20 @@
 
         </div>
 
-        <div class="col-lg-9 col-md-9" id="content" >
+        <div class="col-9 " id="content" >
             {{current_word}} <img src="/img/music-32.png" alt="" id="word-play" @click="wordplay">
             <audio id="word-sound" controls :src="audio_url" :autoplay="autoplay">
             </audio>
             <div class="row" id="definition">
-                <div v-html="word_meanings" :class="show_trans ? 'col-lg-7 ' : 'col-lg-12 '"></div>
-                <div v-html="trans_meanings" class="col-lg-5 border-start" v-if="show_trans"></div>
+                <div v-html="word_meanings" :class="show_trans ? 'col-7 ' : 'col-12 '"></div>
+                <div v-html="trans_meanings" class="col-5 border-start" v-if="show_trans"></div>
             </div>
             <div class="m-1">
                 Examples:
             </div>
             <div class="row sentences">
-                <div v-html="word_html" :class="show_trans ? 'col-lg-7 ' : 'col-lg-12 '"></div>
-                <div v-html="trans_html" class="col-lg-5 border-start" v-if="show_trans"></div>
+                <div v-html="word_html" :class="show_trans ? 'col-7 ' : 'col-12 '"></div>
+                <div v-html="trans_html" class="col-5 border-start" v-if="show_trans"></div>
             </div>
         </div>
     </div>
