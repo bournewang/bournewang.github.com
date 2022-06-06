@@ -9,7 +9,7 @@ tags:
 ---
 
 # Spark RDD - Spark Shell Word Count
-**find the top ranking words used in an article**
+**find the top 10 ranking words used in an article**
 
 ## 1. upload news file to hdfs
 ```shell
@@ -42,43 +42,24 @@ Welcome to
 Using Scala version 2.11.12 (Java HotSpot(TM) 64-Bit Server VM, Java 1.8.0_231)
 Type in expressions to have them evaluated.
 Type :help for more information.
+
 ```
 
-## 2. Load text file
+## 3. Load text file
 ```shell
 scala> val tf = sc.textFile("/dir1/news.txt")
 f: org.apache.spark.rdd.RDD[String] = /dir1/news.txt MapPartitionsRDD[15] at textFile at <console>:24
 ```
 
-## 3. Split every row and put all the words into a list
-## 4. Set number 1 to every single word
+## 4. transform the RDD and made some actions to get the top 10 ranking words
 ```shell
-// get each word
-scala> val f1 = f.flatMap(x => x.split(" ")).map(x=>(x,1))
-f1: org.apache.spark.rdd.RDD[(String, Int)] = MapPartitionsRDD[17] at map at <console>:25
-```
-
-## 5. Aggregate the second column for the same word(key)
-```shell
-// get the word count
-scala> val f2 = f1.reduceByKey((a,b) => a+b)
-f2: org.apache.spark.rdd.RDD[(String, Int)] = ShuffledRDD[18] at reduceByKey at <console>:27
-
-scala> f2.collect
-res23: Array[(String, Int)] = Array((someone,1), (Corrections),1), (call,4), (inmate,5), (arrested,1), (transferred,1), (afternoon,1), (Mateo,1), (Chesa,2), (behind,1), (happen.",1), (been,8), (begins,1), (DEAD,1), (clip,1), (over,1), (Girl.",1), (Nightingale-Bamford,11), (any,1), (CLICK,3), (grab,1), (instead,1), (offering,2), (ex-con,1), (month,1), (Seth,1), (million,1), (tips,3), (shootings,1), (are,12), (parts,1), (2015,1), (?WE?RE,1), (times,1), (Girl,,2), (into,,1), (TEEN,1), (safely,1), (our,1), (go,,1), (plotted,1), (going,1), (1988.,1), (Ziegesar,,1), (them,2), (conference,1), (assistant,1), (planned,1), (US,2), (GIRL,2), (retiring,,1), (According,3), (dealing,1), (viral,1), (long,1), (HERE,3), (train,1), (McDermid),1), (goods.,1), (evaluation,1), (even,1), (Girl,1), (Connie,1)...
-```
-
-## 6. Sort by the second column(word numbers) descendingly
-```shell
-// sort by word count desc
-scala> val f4 = f3.filter(x => !x._1.isEmpty).sortBy(x => x._2, false)
-f4: org.apache.spark.rdd.RDD[(String, Int)] = MapPartitionsRDD[52] at sortBy at <console>:25
-
-// get the top 10 words
-scala> f4.take(10)
-res45: Array[(String, Int)] = Array((the,72), (to,63), (a,51), (of,50), (in,40), (on,33), (and,32), (for,26), (at,24), (her,23))
-
-scala> f4.take(10).foreach(println)
+scala> tf.flatMap(line =>line.split(" ")).
+     | filter(x=>x.nonEmpty).
+     | map(x=>(x,1)).
+     | reduceByKey((a,b)=>a+b).
+     | sortBy(x=>x._2, false).
+     | take(10).
+     | foreach(println)
 (the,72)
 (to,63)
 (a,51)
@@ -89,5 +70,15 @@ scala> f4.take(10).foreach(println)
 (for,26)
 (at,24)
 (her,23)
-
 ```
+
+
+|method| description                                               |
+|-----|-----------------------------------------------------------|
+|flatMap(line =>line.split(" "))| split each row by space and put all the words in an array |
+|filter(x=>x.nonEmpty)| root out emepty element                                   |
+|map(x=>(x,1))| give each word an initial number - 1                      |
+|reduceByKey((a,b) => a+b)| aggregate the numbers for every same word(key)            |
+|sortBy(x=>x._2, false)| sort by number(2nd column) descendingly                   |
+|take(10)| take the top 10 element                                   |
+|foreach(println)| print each element                                        |
