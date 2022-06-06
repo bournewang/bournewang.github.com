@@ -28,7 +28,8 @@ y --> yt[Yarn Cluster];
 Spark runs on local host and does not involve other hosts and components. 
 * local, 1 executor
 * local[N], N executor
-* local[*], N executor (while N = number of CPU cores, this is the default mode)  
+* local[*], N executor (while N = number of CPU cores, this is the default mode)
+
 ```shell
 [root@hadoop001 ~]# jps
 26609 Jps
@@ -283,3 +284,12 @@ SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
 22/06/06 15:40:13 INFO util.ShutdownHookManager: Deleting directory /tmp/spark-92dd37a5-03cf-43d1-943d-2d6967f9eae6
 [root@hadoop001 ~]#
 ```
+
+open the tracking URL in browser:
+![spark app detail](/post_img/spark-app-detail.jpg)
+click to go the [Logs] link,  
+![spark logs](/post_img/spark-app-logs.jpg)
+
+and then click the [stdout], we will find the result: 
+_Pi is roughly 3.137823137823138_
+![spark logs stdout](/post_img/spark-app-log-std.jpg)
