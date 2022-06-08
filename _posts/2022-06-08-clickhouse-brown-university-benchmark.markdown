@@ -8,7 +8,7 @@ tags:
     - Clickhouse
 ---
 
-# 1. Clickhouse大数据集测试-Brown University Benchmark
+# 1. Clickhouse Overview
 Clickhouse是优秀的列式数据库，主要用于OLAP领域。  
 
 特点:  
