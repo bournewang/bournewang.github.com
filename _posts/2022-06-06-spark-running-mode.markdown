@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spark Running Mode"
-date:   2022-06-01 19:32:35 +0800
+date:   2022-06-06 13:22:28 +0800
 categories: language
 tags:
     - Bigdata
