@@ -8,27 +8,10 @@ tags:
     - Clickhouse
 ---
 
-# 1. Clickhouse Overview
-Clickhouse是优秀的列式数据库，主要用于OLAP领域。  
-
-特点:  
-* 不同于OLTP需要大量的CRUD，OLAP一般只对数据做读（R）操作；
-* 无需事物，低一致性要求；
-* 查询通常涉及大量的行，少量的列，较小的结果集；
-
-根据以上特点，列式数据库要从底层优化。
-
-列式数据库优点  
-* 行存储模式下，不相关的列在查询时也被读出，读取数据量大于需要的数据量。列存储时，只需要读取相关的列即可；
-* 同一列中数据类型一致，压缩效果明显。列存有着高达十倍的压缩比，节省存储空间；
-* 更高的压缩比，数据量更小，减少了读取时间。 
-* 高压缩比还意味着系统缓存效果更好。
-* 有序存储，建表时按照某列排序；
-
-# 2. Brown University Benchmark
+# 1. Clickhouse - Brown University Benchmark
 This chapter followed the instruction of [Brown University Benchmark](https://clickhouse.com/docs/zh/getting-started/example-datasets/brown-benchmark/){:target="_blank"}
 
-## 2.1 Downlaod data
+## 1.1 Downlaod data
 wget is too slow, so I use _axel_ to open 5 thread to download the data.
 ```shell
 #wget https://datasets.clickhouse.com/mgbench{1..3}.csv.xz
@@ -37,7 +20,7 @@ wget is too slow, so I use _axel_ to open 5 thread to download the data.
 [root@hadoop003 BrownUniversity]# axel -n 5 https://datasets.clickhouse.com/mgbench3.csv.xz
 ```
 
-## 2.2 Unpack the data
+## 1.2 Unpack the data
 ```shell
 [root@hadoop003 BrownUniversity]# xz -v -d mgbench{1..3}.csv.xz
 ...
@@ -48,7 +31,7 @@ total 21398384
 -rw-r--r-- 1 root root 8264547394 Jun  8 16:42 mgbench3.csv
 ```
 
-## 2.3 Create the tables
+## 1.3 Create the tables
 
 ```shell
 CREATE DATABASE mgbench;
@@ -106,14 +89,15 @@ ENGINE = MergeTree()
 ORDER BY (event_type, log_time);
 ```
 
-## 2.4 Import data
+## 1.4 Import data
 ```shell
 clickhouse-client --query "INSERT INTO mgbench.logs1 FORMAT CSVWithNames" < mgbench1.csv
 clickhouse-client --query "INSERT INTO mgbench.logs2 FORMAT CSVWithNames" < mgbench2.csv
 clickhouse-client --query "INSERT INTO mgbench.logs3 FORMAT CSVWithNames" < mgbench3.csv
 ```
 
-## 2.5 Benchmarks on logs1
+# 2 Running Benchmarks
+## 2.1 Benchmarks on logs1
 
 ### -- Q1.1: What is the CPU/network utilization for each web server since midnight?
 
@@ -693,7 +677,7 @@ Query id: f7bea703-80fe-4289-ab56-5bf1110badf2
 
 ```
 
-## 2.6 Benchmarks on logs2
+## 2.1 Benchmarks on logs2
 
 ### -- Q2.1: Which requests have caused server errors within the past 2 weeks?
 ```shell
@@ -1027,7 +1011,7 @@ Query id: a548aeea-3e71-4b8a-b404-d58b0d6b6eb8
 
 ```
 
-## 2.7 Benchmarks on logs3
+## 2.2 Benchmarks on logs3
 ### -- Q3.1: Did the indoor temperature reach freezing over the weekend?
 ```shell
 hadoop003 :) SELECT *
