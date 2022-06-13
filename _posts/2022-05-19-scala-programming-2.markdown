@@ -2,7 +2,7 @@
 layout: post
 title:  "Scala Programming - Part 2"
 date:   2022-05-19 21:59:15 +0800
-categories: language
+categories: bigdata
 tags:
     - Bigdata
     - Scala

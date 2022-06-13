@@ -2,7 +2,7 @@
 layout: post
 title:  "Datawarehouse Model Design"
 date:   2022-04-17 18:50:36 +0800
-categories: Model Design
+categories: bigdata
 tags:
     - Bigdata 
     - Model Design

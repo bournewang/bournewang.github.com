@@ -2,7 +2,7 @@
 layout: post
 title:  "Sqoop2 Practice"
 date:   2022-06-11 15:19:00 +0800
-categories: db
+categories: bigdata
 tags:
     - Bigdata
     - Sqoop2

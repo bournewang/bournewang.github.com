@@ -2,7 +2,7 @@
 layout: post
 title:  "Azkaban Usage - Part 1"
 date:   2022-05-24 20:23:26 +0800
-categories: language
+categories: bigdata
 tags:
     - Bigdata
     - Azkaban

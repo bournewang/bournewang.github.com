@@ -2,7 +2,7 @@
 layout: post
 title:  "Spark RDD - Spark Shell Word Count"
 date:   2022-06-01 19:32:35 +0800
-categories: language
+categories: bigdata
 tags:
     - Bigdata
     - Spark

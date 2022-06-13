@@ -2,7 +2,7 @@
 layout: post
 title:  "Clickhouse大数据集测试-Brown University Benchmark"
 date:   2022-06-08 19:50:17 +0800
-categories: db
+categories: bigdata
 tags:
     - Bigdata
     - Clickhouse
