@@ -47,13 +47,13 @@ Type :help for more information.
 
 ## 3. Load text file
 ```shell
-scala> val tf = sc.textFile("/dir1/news.txt")
+scala> val rdd = sc.textFile("/dir1/news.txt")
 f: org.apache.spark.rdd.RDD[String] = /dir1/news.txt MapPartitionsRDD[15] at textFile at <console>:24
 ```
 
 ## 4. transform the RDD and made some actions to get the top 10 ranking words
 ```shell
-scala> tf.flatMap(line =>line.split(" ")).
+scala> rdd.flatMap(line =>line.split(" ")).
      | filter(x=>x.nonEmpty).
      | map(x=>(x,1)).
      | reduceByKey((a,b)=>a+b).
