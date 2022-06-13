@@ -8,7 +8,7 @@ tags:
     - Spark
 ---
 
-# Spark RDD - Spark Shell Word Count
+# Spark RDD - Spark Shell several ways to do word count
 **find the top 10 ranking words used in an article**
 
 ## 1. upload news file to hdfs
@@ -82,3 +82,62 @@ scala> tf.flatMap(line =>line.split(" ")).
 |sortBy(x=>x._2, false)| sort by number(2nd column) descendingly                   |
 |take(10)| take the top 10 element                                   |
 |foreach(println)| print each element                                        |
+
+## 5. Other ways to do word count.
+```shell
+scala> rdd.flatMap(_.split(" ")).
+filter(_.nonEmpty).
+map((_,1)).
+foldByKey(0)(_+_).
+sortBy(x=>x._2,false).
+take(10).
+foreach(println)
+(the,72)
+(to,63)
+(a,51)
+(of,50)
+(in,40)
+(on,33)
+(and,32)
+(for,26)
+(at,24)
+(her,23)
+
+scala> rdd.flatMap(_.split(" ")).
+filter(_.nonEmpty).
+map((_,1)).
+aggregateByKey(0)(_+_, _+_).
+sortBy(x=>x._2,false).
+take(10).
+foreach(println)
+(the,72)
+(to,63)
+(a,51)
+(of,50)
+(in,40)
+(on,33)
+(and,32)
+(for,26)
+(at,24)
+(her,23)
+
+scala> rdd.flatMap(_.split(" ")).
+filter(_.nonEmpty).
+map((_,1)).
+groupByKey.
+map(x => (x._1, x._2.sum)).
+sortBy(x=>x._2,false).
+collect.
+take(10).
+foreach(println)
+(the,72)
+(to,63)
+(a,51)
+(of,50)
+(in,40)
+(on,33)
+(and,32)
+(for,26)
+(at,24)
+(her,23)
+```
