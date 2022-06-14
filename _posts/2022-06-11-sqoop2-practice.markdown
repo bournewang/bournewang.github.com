@@ -5,7 +5,7 @@ date:   2022-06-11 15:19:00 +0800
 categories: bigdata
 tags:
     - Bigdata
-    - Sqoop2
+    - Sqoop
 ---
 
 ## 1 Install and configuration
