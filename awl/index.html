@@ -18,9 +18,9 @@
         #content1{height: 80vh; margin-top: 6vh;padding: 0.5em;}
         /*#content > div{width: 100%;}*/
         /*#meanings{width: 100%; overflow-y: scroll;border: 2px solid darkred;background: lightblue;padding: 0.5em;}*/
-        #definition, .sentences{overflow-y: scroll; padding: .5em; border-style: ridge; border-width: 0.3em; border-radius: 0.5em; background1: lightyellow;}
+        #definition, .examples{overflow-y: scroll; padding: .5em; border-style: ridge; border-width: 0.3em; border-radius: 0.5em; background1: lightyellow;}
         #definition{max-height: 30vh;}
-        .sentences {max-height: 50vh;}
+        .examples {max-height: 50vh;}
         #all div:nth-child(n+11) {display: none;}
         span.delete{text-decoration: line-through;}
         span.current{background: #4cae4c; color: whitesmoke;}
@@ -30,9 +30,10 @@
         .reference{text-align: right;font-size:.8em; font-style: italic;}
         em{font-style: normal; background: yellow;}
         .example {font-style: italic;text-decoration: underline;}
-        #word-sound{display: none;}
-        #word-play{width: 1em; height: 1em;}
-        #word-play:hover{width: 1.1em; height: 1.1em;}
+        audio{display: none;}
+        .play-btn{width: 1em; height: 1em;}
+        .play-btn:hover{width: 1.1em; height: 1.1em;}
+        .examples .play-btn{margin-top: 5px;margin-right: 5px;}
     </style>
 </head>
 <body id="app" >
@@ -87,8 +88,8 @@
         </div>
 
         <div class="col-9 " id="content" >
-            {{current_word}} <img src="/img/music-32.png" alt="" id="word-play" @click="wordplay">
-            <audio id="word-sound" controls :src="audio_url" :autoplay="autoplay">
+            {{current_word}} <img src="/img/music-32.png" alt="" class="play-btn" @click="word_play">
+            <audio id="word-audio" controls :src="word_audio_url" :autoplay="autoplay">
             </audio>
             <div class="row" id="definition">
                 <div v-html="word_meanings" :class="show_trans ? 'col-7 ' : 'col-12 '"></div>
@@ -97,8 +98,17 @@
             <div class="m-1">
                 Examples:
             </div>
-            <div class="row sentences">
-                <div v-html="word_html" :class="show_trans ? 'col-7 ' : 'col-12 '"></div>
+            <div class="row examples">
+                <div :class="show_trans ? 'col-7 ' : 'col-12 '">
+                    <div v-for="(sentence, i) in examples_en">
+                        <template v-if="i<10">
+                            <img src="/img/music-32.png" class="float-start play-btn" @click="sentence_play(sentence.textContent)">
+                            <div class="clearfix" v-html="sentence.innerHTML"></div>
+                        </template>
+                    </div>
+                    <audio id="sentence-audio" controls :src="sentence_audio_url" :autoplay="autoplay">
+                    </audio>
+                </div>
                 <div v-html="trans_html" class="col-5 border-start" v-if="show_trans"></div>
             </div>
         </div>
@@ -114,8 +124,10 @@
             return {
                 counter: 0,
                 current_word: null,
+                current_sentence: "",
                 awl: [],
-                word_html: null,
+                // word_html: null,
+                examples_en: [],
                 word_meanings: null,
                 trans_meanings: null,
                 trans_html: null,
@@ -174,7 +186,15 @@
                 })
 
                 axios.get("/awl/example/en/"+word+".html").then(function(res) {
-                    that.word_html = res.data + "<div  class='reference'><a href='https://sentencedict.com/' target='_blank'>https://sentencedict.com/</a> provide data</div>";
+                    var parser = new DOMParser();
+                    var doc = parser.parseFromString(res.data, "text/html");
+                    var divs = doc.getElementsByTagName("div");
+                    that.examples_en = [];
+                    for (var i=0; i< divs.length; i++) {
+                        if (divs[i].id == 'all') continue;
+                        that.examples_en.push(divs[i]);
+                    }
+                    // that.word_html = res.data + "<div  class='reference'><a href='https://sentencedict.com/' target='_blank'>https://sentencedict.com/</a> provide data</div>";
                 })
                 axios.get("/awl/example/zh-CN/"+word+".html").then(function(res) {
                     that.trans_html = res.data
@@ -183,16 +203,23 @@
             checkword (word) {
                 window.localStorage.setItem("mastered_words", this.mastered_words.toString())
             },
-            wordplay(){
-                document.getElementById('word-sound').play()
+            word_play(){
+                document.getElementById('word-audio').play()
+            },
+            sentence_play(text){
+                this.current_sentence = text
+                document.getElementById("sentence-audio").play()
             }
         },
         computed: {
             sentense_url: function(){
                 return "https://sentencedict.com/"+this.current_word+".html"
             },
-            audio_url: function(){
+            word_audio_url: function(){
                 return 'https://dict.youdao.com/dictvoice?type=1&audio=' + this.current_word
+            },
+            sentence_audio_url: function(){
+                return 'https://dict.youdao.com/dictvoice?type=1&audio=' + this.current_sentence.replace(/\s*(\n)?\s*\d+\.\s+/, "").replace(/\s*(\n)?\s*$/,"")
             }
         }
     }
