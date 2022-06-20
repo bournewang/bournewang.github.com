@@ -77,12 +77,22 @@ scala> val rdd = sc.textFile("/data/order.log")
 rdd: org.apache.spark.rdd.RDD[String] = /data/order.log MapPartitionsRDD[1] at textFile at <console>:23
 
 scala> rdd.
-  map(x=>(x.split(',')(2).toInt,1)).
-  sortByKey(false).
+  map(x=>x.split(',')(2).toInt).
   top(3).
+  foreach(println)
+489
+226
+159
+
+scala> rdd.
+  map(x=>(x.split(',')(2).toInt,1)).
+  repartition(1).
+  sortByKey(false).
+  take(3).
   foreach(x=>println(x._1))
 489
 226
 159
+
 ```
 
