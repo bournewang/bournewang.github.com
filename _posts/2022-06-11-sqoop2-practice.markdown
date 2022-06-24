@@ -175,8 +175,8 @@ Name: gt
 Database connection
 
 Driver class: com.mysql.jdbc.Driver
-Connection String: jdbc:mysql://rm-2ze9z87x15p0qa7bgfo.mysql.rds.aliyuncs.com:3306/hdel
-Username: gt1206
+Connection String: jdbc:mysql://mysql-host.com:3306/hdel
+Username: *****
 Password: **********
 Fetch Size: 100000
 Connection Properties:
