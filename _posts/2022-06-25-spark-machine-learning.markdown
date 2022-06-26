@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Spark Machine Learning"
-date:   2022-06-26 09:13:17 +0800
+date:   2022-06-25 18:45:17 +0800
 categories: bigdata
 tags:
     - Bigdata
@@ -174,4 +174,4 @@ scala> model1.transform(test).
        
 ```
 
-this time, the model1 perfectly predict the of the test data.
+this time, the model1 perfectly predict the test data.
