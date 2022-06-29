@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Clickhouse实战"
+title:  "Clickhouse Tutorial"
 date:   2022-05-11 22:28:40 +0800
 categories: bigdata
 tags:

@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Hive Windowing and Analytics Function - Part 3 实操"
+title:  "Hive Windowing and Analytics Function - Part 3"
 date:   2022-05-14 19:14:11 +0800
 categories: bigdata
 tags:
@@ -8,7 +8,7 @@ tags:
     - Hive
 ---
 
-# Hive Windowing and Analytics Function - Part 3 实操
+# Hive Windowing and Analytics Function - Part 3
 
 ## 1.1 订单表统计 
 

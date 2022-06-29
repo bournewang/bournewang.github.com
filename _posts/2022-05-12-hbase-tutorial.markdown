@@ -1,13 +1,13 @@
 ---
 layout: post
-title:  "Hbase实操"
+title:  "Hbase Practice"
 date:   2022-05-12 22:19:45 +0800
 categories: bigdata
 tags:
     - Bigdata
     - Hbase
 ---
-# Hbase实操
+# Hbase Practice
 ## 介绍
 HBase是开源、分布式、版本化的非关系型（列式）数据库，由Hdfs提供存储、MapReduce进行并行计算，是Google Bigtable的一个开源实现。
 

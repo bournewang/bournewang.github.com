@@ -1,13 +1,13 @@
 ---
 layout: post
-title:  "Hive beeline连接配置"
+title:  "Hive Beeline Tutorial"
 date:   2022-05-10 12:46:55 +0800
 categories: bigdata
 tags:
     - Bigdata 
     - Hive
 ---
-# Hive Beeline连接配置
+# Hive Beeline Tutorial
 
 ## 1. Hive-cli和Beeline区别
 * hive-cli只能一次一个连接，不能并行处理多个连接；

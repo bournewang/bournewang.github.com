@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "数据处理三剑客-Pandas"
+title:  "Machine Learning - Pandas"
 date:   2022-04-30 20:13:45 +0800
 categories: bigdata
 tags:
