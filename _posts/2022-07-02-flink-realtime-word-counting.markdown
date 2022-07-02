@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Flink Realtime word counting"
+title:  "Flink Realtime Word Counting"
 date:   2022-07-02 17:26:05 +0800
 categories: bigdata
 tags:
