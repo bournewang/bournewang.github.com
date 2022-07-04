@@ -85,6 +85,40 @@ open [http://hadoop001:8081/](http://hadoop001:8081/){:target=_blank} in browser
 ## 4 Run tasks
 Launch a example word count task:
 ```shell
+[root@hadoop001 flink-1.12.7]# flink run ./examples/batch/WordCount.jar  --input README.txt --output /root/readme-count.txt --parallelism 2
+
+------------------------------------------------------------
+ The program finished with the following exception:
+
+org.apache.flink.client.program.ProgramInvocationException: The main method caused an error: java.util.concurrent.ExecutionException: java.lang.RuntimeException: org.apache.flink.runtime.client.JobInitializationException: Could not instantiate JobManager.
+	at org.apache.flink.client.program.PackagedProgram.callMainMethod(PackagedProgram.java:366)
+	at org.apache.flink.client.program.PackagedProgram.invokeInteractiveModeForExecution(PackagedProgram.java:219)
+	at org.apache.flink.client.ClientUtils.executeProgram(ClientUtils.java:114)
+	at org.apache.flink.client.cli.CliFrontend.executeProgram(CliFrontend.java:812)
+...
+Caused by: java.io.FileNotFoundException: File README.txt does not exist or the user running Flink ('root') has insufficient permissions to access it.
+	at org.apache.flink.core.fs.local.LocalFileSystem.getFileStatus(LocalFileSystem.java:106)
+	at org.apache.flink.api.common.io.FileInputFormat.createInputSplits(FileInputFormat.java:598)
+	at org.apache.flink.api.common.io.FileInputFormat.createInputSplits(FileInputFormat.java:62)
+	at org.apache.flink.runtime.executiongraph.ExecutionJobVertex.<init>(ExecutionJobVertex.java:247)
+	... 18 more
+```
+**File README.txt does not exist or the user running Flink ('root') has insufficient permissions to access it.**  
+
+Should close HDFS in Standalone mode, and re-start cluster.
+
+```shell
+[root@hadoop001 flink-1.12.7]# stop-dfs.sh
+[root@hadoop001 flink-1.12.7]# stop-cluster.sh
+Stopping taskexecutor daemon (pid: 51487) on host hadoop001.
+Stopping taskexecutor daemon (pid: 51365) on host hadoop002.
+Stopping taskexecutor daemon (pid: 49585) on host hadoop003.
+[root@hadoop001 flink-1.12.7]# start-cluster.sh
+Starting cluster.
+Starting standalonesession daemon on host hadoop001.
+Starting taskexecutor daemon on host hadoop001.
+Starting taskexecutor daemon on host hadoop002.
+Starting taskexecutor daemon on host hadoop003.
 [root@hadoop001 flink-1.12.7]# flink run ./examples/batch/WordCount.jar \
  --input README.txt \ 
  --output /root/readme-count.txt \
@@ -95,6 +129,9 @@ Job with JobID 16f8f54c12b4c26ea8a95d719b63cdaa has finished.
 Job Runtime: 670 ms
 
 ```
+
+Seems it works, but when I re-run flink while hdfs is on later, I still get job run completely.   
+So what's the **_real reason_** of this **ERROR**? 
 
 According the webui, task was run on hadoop002, check it there. ![flink task detail](/post_img/flink-task-detail.jpg) 
 ```shell
