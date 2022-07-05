@@ -213,6 +213,7 @@ object UserReport {
 ```
 
 ## 3. Run
+Click [**_Run -> Edit Configurations_**], in the _**Program arguments**_ field, input data path " ./data/person_info_1000.json".
 Run the program, we get the result in _report_ directory:
 ```shell
 (base) ➜  SparkUserReport find report 
@@ -288,7 +289,7 @@ report/age-group/part-00000-b91f9ff5-f13c-4b19-b808-ec5bf10e2bac-c000.json
 {"age_group":"90s","total":11}
 ```
 
-Because some addresses do not strictly use province and city format, the parsed prince looks a bit strange, you can ignore it or continue process it.
+Because some addresses do not strictly use province and city format, the parsed province looks a bit strange, in production environment, we need to clean the data first.
 
 ## 4. Download
 Project code and data download:  
