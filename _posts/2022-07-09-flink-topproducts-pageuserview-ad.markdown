@@ -203,7 +203,7 @@ product Id: 3104010, access: 5
 
 ```
 
-## 2. Page View
+## 2. Product Page View
 Compute page view every 10 seconds according previous log data.
 
 ### 2.1 Program
