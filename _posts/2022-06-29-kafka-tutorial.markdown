@@ -103,7 +103,7 @@ topic1
 
 ### 4.3 Produce messages
 ```shell
-[root@hadoop001 ~]# kafka-console-consumer.sh --bootstrap-server hadoop001:9092 --topic topic1
+[root@hadoop001 ~]# kafka-console-producer.sh --broker-list hadoop001:9092 --topic topic1
 ```
 
 ### 4.4 Consume messages
