@@ -16,7 +16,7 @@ I live in Shanghai. Before the pandemic, I enjoy traveling to different places.
 I am seeking a job now, and you can contact me through **xiaopei0206@icloud.com** if you are interested in me.
 
 ## Work Experience
-### **2022-01  ~ Now**
+### **2022-01~Now BigData** 
 
 <style>a{text-decoration: underline;}</style>
 **Hadoop/HDFS/Hive**  
@@ -59,15 +59,36 @@ Real-time collect MySQL change to Kafka;
 * [Real-time analysis of the dynamic distribution of registered users by province, age group, and gender](/bigdata/2022/07/08/flink-user-analyses/){:target="_blank"};  
 * [Real-time word counting](/bigdata/2022/07/02/flink-realtime-word-counting/){:target="_blank"};  
 
-### 2012 ~ 2021
-I shifted to the direction of the Internet, developing Internet applications, and became a system architect and full-stack developer.  
-At the end of 2019, I started a business as a technical co-founder with my partner. We deliver SaaS services (including stock management, order management, etc.) to factories in the textile sector. Over the next two years, we have developed nearly 300 clients.  
-Technical stacks: **Linux   Apache   Nginx   MySQL   Redis   Ruby   Ruby on Rails   PHP   Laravel   VUE   Nova   Mini Program** (in the WeChat ecosystem)
+### 2012~2021 Internet 
+**System architect & Full-stack developer**
 
-### 2005~2011 Software Engineer in C
-I worked as a C language developer in 2 companies.
-* **Netsoft Ltd.**  
-  This is an automotive software provider that does embedded software development and our main development environment is C. We are the first company to be CMMI5 certified in China.  
-* **Linpus Linux** 
-  
- 
+* **Suishou Technology**  
+  I started a business as a technical co-founder with my partner.   
+  We deliver SaaS services (including stock management, order management, etc.) to factories in the textile sector.   
+  Over the next two years, we have developed nearly 300 clients.    
+  Technical stacks: **Linux Nginx MySQL Redis PHP/Laravel VUE/Nova**
+
+* **Eyepp Network Technology**  
+  It's a startup company, at first we created a vertical e-commerce platform in the field of eyewear.   
+  Later, we have built a training platform for the optical industry, offering services to opticians nationwide.  
+  Technical stacks: **Linux Apache/Nginx MySQL PHP Ruby/Rails**
+
+* **Nextec in Otto Group**    
+  We were the R&D department of the German Otto Group and we developed e-commerce systems for the group's business entry into China.  
+  Technical stacks: **Linux Apache/Nginx MySQL PHP**
+
+* **Newland Imageco Information Ltd**    
+  The company mainly provided solutions for QRCode payments.  
+  Technical stacks: **Linux Apache/Nginx MySQL PHP**
+
+### 2005~2011 Software Engineer in C  
+
+* [**Linpus Linux**](http://linpus.com/pages/page_index_en){:target="_blank"}   
+  Linpus is an innovator and a pioneer in bringing user friendly open source solutions to the mass consumer market.  
+  We delivered **Linpus Linux** to computer vendors such as Acer and Asus, which were installed on the computers and sold out together.  
+  Technical stacks: **Linux C/GTK Shell Python**
+
+* [**Netsoft Ltd.**](https://www.neusoft.com/){:target="_blank"}  
+  Founded in 1991, Neusoft is the first listed software company in China, and it has been committed to creating better life and promoting social development by leveraging software innovation.  
+  My department was an automotive software provider that did embedded software development and our main development environment is in C. We were also the first company to be CMMI5 certified in China.  
+  Technical stacks: **C** 
