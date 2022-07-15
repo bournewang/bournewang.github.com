@@ -3,9 +3,7 @@ layout: post
 title:  "Hbase Practice"
 date:   2022-05-12 22:19:45 +0800
 categories: bigdata
-tags:
-    - Bigdata
-    - Hbase
+tags: [Bigdata, HBase]
 ---
 # Hbase Practice
 ## 介绍
