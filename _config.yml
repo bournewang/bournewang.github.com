@@ -4,8 +4,8 @@ title: Yet Another Bigdata Developer
 SEOTitle: 誉锟的博客 | 誉锟大数据
 header-img: img/home-bg.jpg
 email: xiaopei0206@icloud.com
-description: "关于程序与设计、黑客与画家 | 誉锟，Software Engineer，Big Data Engineer | 这里是 @Yukun誉锟 的个人博客，与你一起发现更大的世界。"
-keyword: "誉锟, Yukun誉锟, Yukun, 鬼栈, Yukunpro, @Yukunpro, 誉锟的博客, Yukun Blog, 博客, 个人网站, 互联网, 大数据, 机器学习"
+description: "誉锟，Big Data Engineer | 这里是 @Yukun誉锟 的个人博客，与你一起发现更大的世界。"
+keyword: "誉锟, Yukun誉锟, Yukun, 誉锟的博客, Yukun Blog, 博客, 个人网站, 互联网, 大数据, 机器学习"
 url: "https://bournewang.github.io/"              # your host, for absolute URL
 baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
 
