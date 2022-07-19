@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Pulling Data From Mysql to HBase"
-date:   2022-07-19 18:11:15 +0800
+date:   2022-07-19 20:34:33 +0800
 categories: bigdata
 tags: [Bigdata, Flin, DataPulling]
 ---
