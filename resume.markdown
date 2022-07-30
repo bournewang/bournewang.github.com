@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Resume
+title: My Resume
 description: "Yukun's Resume"
 header-img: "img/tag-bg.jpg"
 permalink: /resume/
@@ -27,9 +27,6 @@ I am seeking a job now, and you can contact me through **xiaopei0206@icloud.com*
 * Offline Data Warehouse Construction  
   - Design a data warehouse(ODS/DWD/DWS/ADS) for a housing agency, including a housing table, agents table, order table, public dimension table, etc. 
   - Use Sqoop to import data from MySQL to ODS;
-  - [DWD](/bigdata/2022/04/17/datawarehouse-model-design/){:target="_blank"};
-  - Aggregate DWD to DWS;
-  - Aggregate DWS to ADS;
 
 **Spark**
 * [Word counting in spark shell](/bigdata/2022/06/01/spark-shell/){:target="_blank"};
