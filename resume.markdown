@@ -60,6 +60,7 @@ Real-time collect MySQL change to Kafka;
 * [Real-time word counting](/bigdata/2022/07/02/flink-realtime-word-counting/){:target="_blank"};
 * [Pulling Data From Mysql to HBase](/bigdata/2022/07/19/pulling-data-from-mysql-to-hbase/){:target="_blank"};
 * [CEP](/bigdata/2022/07/25/flink-cep/){:target="_blank"};
+* [CDC](/bigdata/2022/07/29/flink-cdc/){:target="_blank"};
 
 ### 2012~2021 Internet 
 **System architect & Full-stack developer**
