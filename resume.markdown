@@ -39,19 +39,19 @@ I am seeking a job now, and you can contact me through **xiaopei0206@icloud.com*
 * [Get the top N payment amount](/bigdata/2022/06/20/spark-task/#task-3){:target="_blank"};
 
 **Clickhouse**  
-[Experiment Brown University Benchmark](/bigdata/2022/06/08/clickhouse-brown-university-benchmark/){:target="_blank"};
+* [Experiment Brown University Benchmark](/bigdata/2022/06/08/clickhouse-brown-university-benchmark/){:target="_blank"};
 
 **Flume**  
-[Transfer and save Nginx log to HDFS](/db/2022/06/13/flume-practice/#receive-nginx-logs-and-transcribe-to-hdfs){:target="_blank"};  
-[Collect Nginx log through Flume and consume with Kafka](/bigdata/2022/04/25/kafka-collect-nginx-log-through-flume/){:target="_blank"};
-
+* [Transfer and save Nginx log to HDFS](/db/2022/06/13/flume-practice/#receive-nginx-logs-and-transcribe-to-hdfs){:target="_blank"};  
+* [Collect Nginx log through Flume and consume with Kafka](/bigdata/2022/04/25/kafka-collect-nginx-log-through-flume/){:target="_blank"};
+ 
 **Sqoop 1/2**  
-[Import MySQL data to HDFS & Hive table](/bigdata/2022/05/04/sqoop-usage/){:target="_blank"};  
-[Export data from HDFS to MySQL](/bigdata/2022/05/04/sqoop-usage/#export-from-hdfs-to-mysql){:target="_blank"};  
-[Import MySQL data to HDFS through Sqoop2](/bigdata/2022/06/11/sqoop2-practice/){:target="_blank"};
+* [Import MySQL data to HDFS & Hive table](/bigdata/2022/05/04/sqoop-usage/){:target="_blank"};  
+* [Export data from HDFS to MySQL](/bigdata/2022/05/04/sqoop-usage/#export-from-hdfs-to-mysql){:target="_blank"};  
+* [Import MySQL data to HDFS through Sqoop2](/bigdata/2022/06/11/sqoop2-practice/){:target="_blank"};
 
 **Canal/Kafka**  
-Real-time collect MySQL change to Kafka;
+* Real-time collect MySQL change to Kafka;
 
 **Flink**
 * [Get real-time top N hot products through log stream](/bigdata/2022/07/09/flink-topproducts-pageuserview-ad/#1-top-hot-products){:target="_blank"};  
@@ -59,8 +59,8 @@ Real-time collect MySQL change to Kafka;
 * [Real-time analysis of the dynamic distribution of registered users by province, age group, and gender](/bigdata/2022/07/08/flink-user-analyses/){:target="_blank"};  
 * [Real-time word counting](/bigdata/2022/07/02/flink-realtime-word-counting/){:target="_blank"};
 * [Pulling Data From Mysql to HBase](/bigdata/2022/07/19/pulling-data-from-mysql-to-hbase/){:target="_blank"};
-* [CEP](/bigdata/2022/07/25/flink-cep/){:target="_blank"};
-* [CDC](/bigdata/2022/07/29/flink-cdc/){:target="_blank"};
+* [Flink CEP - Find users who login failed with patterns](/bigdata/2022/07/25/flink-cep/){:target="_blank"};
+* [Flink CDC - Syncing Data from MySQL yo MySQL](/bigdata/2022/07/29/flink-cdc/){:target="_blank"};
 
 ### 2012~2021 Internet 
 **System architect & Full-stack developer**
