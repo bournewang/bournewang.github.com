@@ -1,7 +1,7 @@
 ---
 layout: page
-title: My Resume
-description: "Yukun's Resume"
+title: Resume
+description: "My Resume"
 header-img: "img/tag-bg.jpg"
 permalink: /resume/
 ---
@@ -9,7 +9,7 @@ permalink: /resume/
 ## Introduction
 I have been working in software development and management since I graduated in 2005 with a bachelor's. I have over 10 years of experience in the field of Internet and enterprise application development.
 
-From last year, I started to shift to the direction of bigdata, studying under [**_Mr. Hou Shengwen_**](https://mvp.aliyun.com/mvp/detail/394 ){:target="_blank"}, a famous bigdata expert in China, who was one of the [**MVP of Alibaba**](https://mvp.aliyun.com/mvp/detail/394){:target="_blank"} and [**TVP of Tencent**](https://cloud.tencent.com/tvp/member/462){:target="_blank"} and now is the Chief Technical Expert of Telecom Tianyi Cloud.
+From beginning of 2022, I started to shift to the direction of bigdata, studying under [**_Mr. Hou Shengwen_**](https://mvp.aliyun.com/mvp/detail/394 ){:target="_blank"}, a famous bigdata expert in China, who was one of the [**MVP of Alibaba**](https://mvp.aliyun.com/mvp/detail/394){:target="_blank"} and [**TVP of Tencent**](https://cloud.tencent.com/tvp/member/462){:target="_blank"} and now is the Chief Technical Expert of Telecom Tianyi Cloud.
 
 I live in Shanghai. Before the pandemic, I enjoy traveling to different places.
 
@@ -46,7 +46,7 @@ I am seeking a job now, and you can contact me through **xiaopei0206@icloud.com*
 * [Import MySQL data to HDFS through Sqoop2](/bigdata/2022/06/11/sqoop2-practice/){:target="_blank"};
 
 **Canal/Kafka**  
-* Real-time collect MySQL change to Kafka;
+* [Real-time collect MySQL change to Kafka](/bigdata/2022/07/16/build-realtime-data-flow/){:target="_blank"};
 
 **Flink**
 * [Get real-time top N hot products through log stream](/bigdata/2022/07/09/flink-topproducts-pageuserview-ad/#1-top-hot-products){:target="_blank"};  
