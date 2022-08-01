@@ -50,7 +50,7 @@ permalink: /resume-zh
 * [实时分析注册用户的省份、年龄段、性别分布](/bigdata/2022/07/08/flink-user-analyses/){:target="_blank"};
 * [实时单词统计](/bigdata/2022/07/02/flink-realtime-word-counting/){:target="_blank"};
 * [从Mysql拉取数据到HBase](/bigdata/2022/07/19/pulling-data-from-mysql-to-hbase/){:target="_blank"};
-* [Flink CEP - 预警登陆异常用户](/bigdata/2022/07/25/flink-cep/){:target="_blank"};
+* [Flink CEP - 预警登录异常用户](/bigdata/2022/07/25/flink-cep/){:target="_blank"};
 * [Flink CDC - 从MySQL实时同步数据](/bigdata/2022/07/29/flink-cdc/){:target="_blank"};
 
 ### 2012~2021 互联网
